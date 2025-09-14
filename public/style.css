@@ -1,0 +1,761 @@
+/* =======================================================
+   Base + Variáveis de controle do HERO
+   ======================================================= */
+:root {
+  /* Troque o caminho da imagem de fundo do HERO aqui */
+  --hero-img: url('codmobile-hero2.jpg'); /* EX: assets/matanza-bg.jpg */
+
+  /* Enquadramento e tamanho do fundo do HERO */
+  --hero-pos: center;       /* ex.: center top | center 30% | left center */
+  --hero-size: cover;       /* cover = preenche toda a área (pode cortar um pouco) */
+
+  /* Intensidade do brilho vermelho do hero-bg (gradiente) */
+  --hero-glow-opacity-min: 0.23;
+  --hero-glow-opacity-max: 0.35;
+}
+
+/* =======================================================
+   Base
+   ======================================================= */
+body {
+  background: #16161a;
+  color: #f1f1f1;
+  font-family: 'Orbitron', 'Segoe UI', Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
+
+/* =======================================================
+   Hero/Header
+   - Mantém seu layout atual
+   - AGORA com imagem de fundo no .hero-bg cobrindo 100%
+   ======================================================= */
+.hero {
+  position: relative;
+  width: 100%;
+  min-height: 440px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* Fundo de segurança por baixo da imagem (não será visto) */
+  background: #18181c;
+
+  border-bottom: 3px solid #ff2222;
+  box-shadow: 0 10px 40px #ff2222aa;
+  overflow: hidden;
+}
+
+/* Camada visual do fundo do HERO (imagem + gradiente de brilho por cima) */
+.hero-bg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+
+  /* IMPORTANTE: primeira camada (gradiente) fica por cima da imagem;
+     última camada (var(--hero-img)) é a imagem real do fundo */
+  background-image:
+    radial-gradient(circle at 50% 20%, rgba(255, 34, 34, 1) 0%, rgba(255, 34, 34, 0.0) 75%),
+    var(--hero-img);
+  background-size:
+    100% 100%,              /* gradiente acompanha o tamanho do hero */
+    var(--hero-size);       /* imagem controla se cobre/contém a área */
+  background-position:
+    center,                 /* gradiente centralizado */
+    var(--hero-pos);        /* posição da imagem */
+  background-repeat:
+    no-repeat,
+    no-repeat;
+
+  /* Opacidade animada aplicada ao bloco todo (glow pulsante) */
+  opacity: var(--hero-glow-opacity-min);
+  animation: pulse-bg 2.5s infinite alternate;
+}
+
+/* Animação do brilho do HERO */
+@keyframes pulse-bg {
+  0%   { opacity: var(--hero-glow-opacity-min); }
+  100% { opacity: var(--hero-glow-opacity-max); }
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2; /* acima da imagem e do glow */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.clan-logo {
+  width: 320px;
+  border-radius: 22px;
+  box-shadow: 0 0 60px #ff2222, 0 0 120px #222 inset;
+  animation: pulse-glow 2.2s infinite alternate;
+}
+@keyframes pulse-glow {
+  0%   { box-shadow: 0 0 30px #ff2222, 0 0 50px #222 inset; }
+  100% { box-shadow: 0 0 60px #ff2222, 0 0 120px #222 inset; }
+}
+
+.main-title {
+  font-size: 3.4rem;
+  color: #ff2222;
+  font-weight: 900;
+  letter-spacing: 3px;
+  margin-top: 18px;
+  margin-bottom: 4px;
+  text-shadow: 0 0 18px #ff2222, 2px 2px 16px #000;
+  font-family: 'Orbitron', 'Arial Black', Arial, sans-serif;
+}
+.clan-slogan {
+  color: #fff;
+  font-size: 1.16rem;
+  font-style: italic;
+  margin-bottom: 10px;
+  letter-spacing: 1px;
+  text-shadow: 0 0 8px #ff2222;
+}
+.subtitle {
+  font-size: 1.35rem;
+  color: #aaa;
+  letter-spacing: 2px;
+  margin-bottom: 24px;
+  font-weight: bold;
+}
+
+/* Admin gear */
+.admin-tools {
+  position: absolute;
+  top: 18px;
+  right: 38px;
+  z-index: 10;
+}
+.gear-icon {
+  font-size: 2.45rem;
+  color: #ff2222;
+  cursor: pointer;
+  transition: color 0.2s;
+  filter: drop-shadow(0 0 8px #ff2222);
+}
+.gear-icon:hover {
+  color: #0fa;
+  filter: drop-shadow(0 0 12px #0fa);
+}
+
+/* =======================================================
+   Event info
+   ======================================================= */
+.event-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin: 40px auto 0 auto;
+  max-width: 880px;
+  background: rgba(34,34,34,0.92);
+  border-radius: 28px;
+  box-shadow: 0 4px 24px #111, 0 0 80px #ff222255;
+  padding: 18px 18px 24px 18px;
+  font-size: 0.95rem;
+  border-top: 4px solid #ff2222;
+  border-bottom: 4px solid #ff2222;
+  position: relative;
+}
+.event-row {
+  display: flex;
+  gap: 38px;
+  justify-content: center;
+  margin-bottom: 12px;
+  font-size: 0.97rem;
+}
+.event-row .event-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.98em;
+  font-weight: bold;
+  flex-direction: row;
+}
+.event-label .event-icon {
+  font-size: 1.3em;
+  margin-right: 3px;
+}
+.event-value {
+  font-size: 1em;
+  font-family: 'Orbitron', monospace;
+  margin-left: 7px;
+  font-weight: bold;
+}
+.timer {
+  margin-top: 8px;
+  font-size: 1.08rem;
+  color: #0fa;
+  font-weight: bold;
+  text-shadow: 0 0 14px #0fa, 0 0 2px #fff;
+}
+
+/* =======================================================
+   Cards de texto (Dinâmica / Regras)
+   ======================================================= */
+.dinamica, .regras {
+  margin: 32px auto;
+  max-width: 900px;
+  background: rgba(34,34,34,0.93);
+  border-radius: 16px;
+  box-shadow: 0 4px 24px #111, 0 0 24px #ff2222;
+  padding: 24px;
+}
+.dinamica h2, .regras h2 {
+  color: #ff2222;
+  margin-top: 0;
+  font-size: 2.1rem;
+  font-family: 'Orbitron', Arial, sans-serif;
+  letter-spacing: 2px;
+}
+#dinamica-content, #regras-content {
+  margin-top: 11px;
+  font-size: 1.18rem;
+  color: #f1f1f1;
+  white-space: pre-line;
+  font-family: 'Orbitron', Arial, sans-serif;
+}
+
+/* =======================================================
+   Ações
+   ======================================================= */
+.action-buttons {
+  display: flex;
+  gap: 38px;
+  justify-content: center;
+  margin: 38px auto 0 auto;
+  flex-wrap: wrap;
+}
+.main-btn, .entry-btn {
+  padding: 18px 54px;
+  border-radius: 38px;
+  font-size: 1.35rem;
+  font-weight: bold;
+  text-decoration: none;
+  margin-bottom: 10px;
+  box-shadow: 0 0 44px #ff2222, 0 0 18px #fff;
+  border: none;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+  letter-spacing: 2px;
+  outline: none;
+}
+.main-btn {
+  background: linear-gradient(90deg, #ff2222 0%, #fff 100%);
+  color: #18181c;
+  box-shadow: 0 0 44px #ff2222, 0 0 18px #fff;
+}
+.main-btn:hover {
+  background: linear-gradient(90deg, #fff 0%, #ff2222 100%);
+  color: #ff2222;
+  box-shadow: 0 0 60px #ff2222, 0 0 18px #fff;
+}
+.entry-btn {
+  background: linear-gradient(90deg, #0fa 0%, #fff 100%);
+  color: #18181c;
+  box-shadow: 0 0 44px #0fa, 0 0 18px #fff;
+}
+.entry-btn:hover {
+  background: linear-gradient(90deg, #fff 0%, #0fa 100%);
+  color: #0fa;
+  box-shadow: 0 0 60px #0fa, 0 0 18px #fff;
+}
+
+/* =======================================================
+   Slots wrapper
+   ======================================================= */
+.slots {
+  margin-top: 40px;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  background: rgba(34,34,34,0.97);
+  border-radius: 16px;
+  box-shadow: 0 4px 24px #111, 0 0 18px #0fa55a33;
+  padding: 24px;
+}
+.slots-title {
+  color: #ea2222;
+  letter-spacing: 2px;
+  font-size: 2.2rem;
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 30px;
+  font-family: 'Orbitron', 'Arial Black', Arial, sans-serif;
+}
+.slot-icon {
+  font-size: 2rem;
+  vertical-align: middle;
+}
+
+/* Slots grid: 3 por linha padrão; 4 em telas grandes; 2 em médias; mobile vira carrossel */
+#slots-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+  padding: 10px 0;
+  justify-items: center;
+}
+@media (min-width: 1400px) {
+  #slots-container { grid-template-columns: repeat(4, 1fr); }
+}
+@media (max-width: 900px) {
+  #slots-container { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 650px) {
+  #slots-container {
+    display: flex;
+    overflow-x: auto;
+    gap: 14px;
+    padding: 10px 0 18px 0;
+    scroll-snap-type: x mandatory;
+  }
+  #slots-container::-webkit-scrollbar { height: 8px; }
+  #slots-container::-webkit-scrollbar-thumb { background: #ff2222; border-radius: 6px; }
+}
+
+/* =======================================================
+   Slot card
+   ======================================================= */
+.slot-card {
+  max-width: 320px;
+  width: 100%;
+  margin: 0;
+  background: #18181c;
+  padding: 22px 18px 18px 18px;
+  border-radius: 15px;
+  border: 2px solid #333;
+  position: relative;
+  transition: box-shadow 0.25s ease, border-color 0.25s ease, transform 0.12s ease;
+  box-shadow: 0 0 0px #000 inset, 0 0 0px #000;
+}
+@media (max-width: 650px) {
+  .slot-card { min-width: 85vw; flex: 0 0 85vw; scroll-snap-align: start; }
+}
+
+/* Estados */
+.slot-card.empty {
+  border-color: #ea2222;
+  box-shadow: 0 0 12px #ea222288, 0 0 0px #0fa inset;
+}
+.slot-card.empty:hover,
+.slot-card.empty:focus-within {
+  border-color: #ff3b3b;
+  box-shadow: 0 0 24px #ff3b3b, 0 0 16px #ff3b3b inset;
+}
+.slot-card.filled {
+  border-color: #0fa;
+  border-left-width: 7px;
+  border-left-style: solid;
+  border-left-color: #0fa;
+  box-shadow: 0 0 16px #00ffaa66 inset, 0 0 12px #0fa;
+}
+.slot-card.filled:hover,
+.slot-card.filled:focus-within {
+  border-color: #27ffbf;
+  box-shadow: 0 0 28px #27ffbf, 0 0 22px #27ffbf inset;
+}
+
+/* Lista de espera */
+.slot-card.waiting {
+  background: #19191c;
+  border-style: dashed;
+}
+.slot-card.waiting.empty { border-color: #ea2222; }
+.slot-card.waiting.filled { border-color: #0fa; }
+
+/* Acessibilidade (menos movimento) */
+@media (prefers-reduced-motion: reduce) {
+  .slot-card { transition: none; }
+}
+
+/* Conteúdo do card */
+.slot-card .slot-number {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #ea2222;
+  font-family: 'Orbitron', 'Arial Black', Arial, sans-serif;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.slot-card label {
+  margin-right: 8px;
+  font-weight: bold;
+  font-size: 1.08rem;
+  color: #0fa;
+  display: block;
+  margin-bottom: 2px;
+}
+.slot-card input, .slot-card textarea {
+  background: #1b1b1b;
+  color: #fff;
+  border: 1px solid #555;
+  border-radius: 6px;
+  padding: 7px 10px;
+  margin-bottom: 10px;
+  font-size: 0.98rem;
+  width: 100%;
+  box-sizing: border-box;
+  font-family: 'Orbitron', 'Segoe UI', Arial, sans-serif;
+  transition: border 0.2s;
+}
+.slot-card input:focus, .slot-card textarea:focus {
+  border: 1.5px solid #0fa;
+  outline: none;
+}
+.slot-card .players-label {
+  color: #ea2222;
+  font-size: 1rem;
+  font-weight: bold;
+  margin-bottom: 8px;
+  letter-spacing: 2px;
+  font-family: 'Orbitron', 'Arial Black', Arial, sans-serif;
+}
+.slot-card .edit-btn,
+.slot-card .save-btn {
+  background: #0fa;
+  color: #222;
+  border: none;
+  border-radius: 6px;
+  padding: 7px 14px;
+  font-size: 1rem;
+  margin-top: 8px;
+  font-weight: bold;
+  transition: background 0.2s, color 0.2s;
+  cursor: pointer;
+  letter-spacing: 2px;
+  box-shadow: 0 0 12px #0fa, 0 0 4px #111 inset;
+  margin-right: 8px;
+}
+.slot-card .edit-btn:hover,
+.slot-card .save-btn:hover {
+  background: #ea2222;
+  color: #fff;
+}
+
+/* =======================================================
+   Footer
+   ======================================================= */
+footer {
+  background: #191919;
+  color: #aaa;
+  text-align: center;
+  padding: 22px 0;
+  margin-top: 40px;
+  border-top: 2px solid #c00;
+  font-size: 1.1rem;
+  letter-spacing: 1px;
+}
+
+/* =======================================================
+   Modais gerais
+   ======================================================= */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0; top: 0; width: 100%; height: 100%;
+  overflow: auto;
+  background: rgba(20,20,20,0.91);
+}
+.modal-content {
+  background: #222;
+  margin: 8% auto; padding: 32px; border-radius: 12px;
+  max-width: 340px; color: #fff; box-shadow: 0 0 28px #ff2222;
+  position: relative;
+}
+.close {
+  color: #ff2222; position: absolute; right: 22px; top: 18px; font-size: 2rem; cursor: pointer;
+}
+
+/* =======================================================
+   Campos padrão (dentro de modais)
+   ======================================================= */
+input, textarea {
+  width: 90%; margin: 8px 0; padding: 10px;
+  border-radius: 6px; border: 1px solid #555; background: #191919; color: #fff;
+  font-family: 'Orbitron', 'Segoe UI', Arial, sans-serif;
+}
+button {
+  padding: 8px 18px; background: #ff2222; color: #fff; border: none; border-radius: 6px;
+  font-weight: bold; font-size: 1rem; margin-top: 8px; cursor: pointer; transition: background 0.2s;
+}
+button:hover { background: #0fa; color: #222; }
+
+/* =======================================================
+   Mini modal para capturar editor do slot
+   ======================================================= */
+.edit-modal-bg {
+  position: fixed; left:0; top:0; width:100vw; height:100vh;
+  background: rgba(0,0,0,0.85); z-index: 9999;
+  display: flex; align-items: center; justify-content: center;
+}
+.edit-modal {
+  background:#222; box-shadow:0 0 22px #ea2222;
+  padding:34px; border-radius:14px; max-width:340px; color:#fff;
+  display:flex; flex-direction:column; align-items:center;
+}
+.edit-modal label { font-weight:bold; margin-bottom:4px; }
+.edit-modal input { padding:10px; border-radius:7px; border:1px solid #0fa; margin-bottom:16px; width:90%; }
+.edit-modal button {
+  background:#0fa; color:#222; font-weight:bold; padding:12px 32px; border-radius:7px; border:none; cursor:pointer;
+  transition: background 0.2s;
+}
+.edit-modal button:hover { background:#ea2222; color:#fff; }
+
+/* =======================================================
+   Responsividade extra (existente)
+   ======================================================= */
+@media (max-width: 650px) {
+  .main-btn, .entry-btn {
+    font-size: 1rem;
+    padding: 12px 18px;
+    width: 95vw;
+    max-width: 320px;
+  }
+  .dinamica, .regras, .event-info { padding: 10px; }
+}
+
+/* =======================================================
+   Seletor Duo/Squad (fix)
+   ======================================================= */
+.mode-select {
+  display: grid;
+  grid-template-columns: 1fr;
+  row-gap: 12px;
+  margin: 8px 0 6px;
+}
+.mode-select label {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  user-select: none;
+  color: #fff;
+}
+.mode-select input[type="radio"] {
+  width: auto;
+  accent-color: #ff2222;
+  transform: scale(1.2);
+  margin: 0;
+}
+
+/* Campos de formulário nos MODAIS (escopo correto) */
+.modal-content input[type="text"],
+.modal-content input[type="password"],
+.modal-content input[type="date"],
+.modal-content input[type="time"],
+.modal-content input[type="number"],
+.modal-content input[type="email"],
+.modal-content textarea {
+  width: 90%;
+  margin: 8px 0;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #555;
+  background: #191919;
+  color: #fff;
+  font-family: 'Orbitron', 'Segoe UI', Arial, sans-serif;
+}
+
+/* Não esticar radios/checkboxes por regras globais */
+input[type="radio"],
+input[type="checkbox"] {
+  width: auto !important;
+  padding: 0;
+  border: none;
+  background: transparent;
+}
+
+/* =======================================================
+   NOVOS AJUSTES DE RESPONSIVIDADE COMPLETOS (Mobile-first)
+   Inclui: hero, event-info, botões, cards, slots, modais,
+   ícone de admin, e painéis de admin/dono.
+   ======================================================= */
+@media (max-width: 650px) {
+  /* Evita rolagem horizontal */
+  html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+  /* Safe areas (notch) */
+  body {
+    padding-left: max(0px, env(safe-area-inset-left));
+    padding-right: max(0px, env(safe-area-inset-right));
+  }
+
+  /* HERO */
+  .hero { min-height: 360px; }
+  .clan-logo { width: 70vw; max-width: 160px; }
+  .main-title { font-size: 1.7rem; margin-top: 8px; margin-bottom: 4px; }
+  .subtitle { font-size: 1rem; margin-bottom: 10px; }
+
+  /* Ícone/área admin */
+  .admin-tools { top: 10px; right: 12px; }
+  .gear-icon { font-size: 2rem; }
+
+  /* EVENT INFO */
+  .event-info {
+    max-width: 98vw;
+    padding: 8px;
+    font-size: 0.95rem;
+    box-sizing: border-box;
+    margin: 18px auto 0 auto;
+    border-radius: 16px;
+    overflow: hidden;
+  }
+  .event-info, .event-info * {
+    min-width: 0;
+    word-break: break-word;
+  }
+  .event-row {
+    width: 100%;
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    margin-bottom: 6px;
+    font-size: 0.98rem;
+  }
+  .event-row .event-label {
+    font-size: 1em;
+    gap: 6px;
+    flex-direction: row;
+    justify-content: flex-start;
+    white-space: normal;
+  }
+  .event-value {
+    font-size: 1em;
+    margin-left: 3px;
+    white-space: normal;
+  }
+  .timer {
+    font-size: 1.02rem;
+    padding: 6px 0;
+    word-break: break-word;
+    text-align: left;
+  }
+
+  /* BOTÕES */
+  .action-buttons {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    margin-top: 20px;
+  }
+  .main-btn, .entry-btn {
+    font-size: 1.1rem;
+    padding: 10px 8px;
+    width: 95vw;
+    max-width: 330px;
+    margin: 0 auto 8px auto;
+    box-sizing: border-box;
+  }
+
+  /* CARDS DE TEXTO */
+  .dinamica, .regras {
+    padding: 10px;
+    margin: 12px auto;
+    max-width: 98vw;
+    border-radius: 10px;
+  }
+  .dinamica h2, .regras h2 { font-size: 1.3rem; }
+  #dinamica-content, #regras-content { font-size: 1rem; }
+
+  /* SLOTS -> carrossel horizontal */
+  #slots-container {
+    display: flex !important;
+    overflow-x: auto;
+    gap: 12px;
+    padding: 10px 0 16px 0;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+    max-width: 98vw;
+    box-sizing: border-box;
+  }
+  #slots-container::-webkit-scrollbar { height: 8px; }
+  #slots-container::-webkit-scrollbar-thumb { background: #ff2222; border-radius: 6px; }
+  .slot-card { min-width: 85vw; flex: 0 0 85vw; scroll-snap-align: start; }
+
+  /* MODAIS (todos) */
+  .modal-content {
+    max-width: 92vw;
+    width: 92vw;
+    margin: 14% auto;
+    padding: 22px;
+    box-sizing: border-box;
+  }
+  .close { right: 14px; top: 12px; font-size: 1.8rem; }
+
+  /* Campos dentro de modal: não estourar largura */
+  .modal-content input[type="text"],
+  .modal-content input[type="password"],
+  .modal-content input[type="date"],
+  .modal-content input[type="time"],
+  .modal-content input[type="number"],
+  .modal-content input[type="email"],
+  .modal-content textarea {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* Edit mini modal */
+  .edit-modal { max-width: 92vw; padding: 22px; }
+  .edit-modal input { width: 100%; }
+
+  /* PAINÉIS DE ADMIN/DONO (em modais ou páginas) */
+  /* Adapta containers comuns; caso seus painéis usem outras classes, adicione junto */
+  .admin-panel, .owner-panel, .painel-admin, .painel-dono, .panel, .dashboard-panel {
+    width: 96vw;
+    max-width: 96vw;
+    box-sizing: border-box;
+    margin: 10px auto;
+    padding: 12px;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .admin-panel *, .owner-panel *, .painel-admin *, .painel-dono *, .panel *, .dashboard-panel * {
+    min-width: 0;
+    word-break: break-word;
+  }
+  .admin-grid, .owner-grid, .painel-grid, .panel-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .admin-actions, .owner-actions, .panel-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .admin-actions .btn, .owner-actions .btn, .panel-actions .btn {
+    width: 100%;
+    padding: 10px 12px;
+    font-size: 1rem;
+  }
+}
+
+/* Afinamentos extras para telas muito pequenas (<= 480px) */
+@media (max-width: 480px) {
+  .main-title { font-size: 1.55rem; }
+  .subtitle   { font-size: 0.95rem; }
+  .timer      { font-size: 0.98rem; }
+  .main-btn, .entry-btn {
+    font-size: 1rem;
+    max-width: 320px;
+  }
+  .slot-card { min-width: 88vw; flex-basis: 88vw; }
+}

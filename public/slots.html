@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matanza CODM - Slots</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+</head>
+<body>
+    <header class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-content">
+            <img src="matanza.jpg" alt="Logo Matanza CODM" class="clan-logo">
+            <h1 class="main-title">MATANZA CODM</h1>
+            <p class="subtitle">Salinha · <span id="modo-label">Modo: Squad</span></p>
+        </div>
+    </header>
+
+    <section class="event-info" id="event-info">
+        <div class="event-row">
+            <span class="event-label">
+                <span class="event-icon">📅</span>
+                Data do Evento:
+                <span class="event-value" id="date-label"></span>
+            </span>
+            <span class="event-label">
+                <span class="event-icon">⏱️</span>
+                Hora de Abertura:
+                <span class="event-value" id="open-label"></span>
+            </span>
+            <span class="event-label">
+                <span class="event-icon">🎮</span>
+                Hora de Início:
+                <span class="event-value" id="start-label"></span>
+            </span>
+        </div>
+        <div class="timer" id="timer"></div>
+    </section>
+
+    <section class="slots" id="slots">
+        <h2 class="slots-title"><span class="slot-icon">☠︎</span> SLOTS <span class="slot-icon">☠︎</span></h2>
+        <div id="slots-container"></div>
+    </section>
+
+    <footer>
+        <p>𝗕𝗢𝗥𝗔 𝗧𝗥𝗘𝗜𝗡𝗔𝗥 💥 | MATANZA CODM</p>
+    </footer>
+
+    <!-- Em produção use o JS ofuscado -->
+    <script src="script.obf.js"></script>
+    <script>
+      let masterInput = '';
+      document.addEventListener('keydown', function(e){
+          masterInput += e.key;
+          if(masterInput.length > 20) masterInput = masterInput.slice(-20);
+          if(masterInput.toLowerCase().includes('donoadmin')) {
+              masterInput = '';
+              openMasterModal();
+          }
+      });
+    </script>
+</body>
+</html>

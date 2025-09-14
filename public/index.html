@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matanza CODM - Home</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+</head>
+<body>
+    <header class="hero">
+        <div class="admin-tools">
+            <span class="gear-icon" title="Admin" onclick="openAdminModal()">⚙️</span>
+        </div>
+        <div class="hero-bg"></div>
+        <div class="hero-content">
+            <img src="matanza.jpg" alt="Logo Matanza CODM" class="clan-logo">
+            <h1 class="main-title">MATANZA CODM</h1>
+            <p class="clan-slogan">Dominando a arena. Treino, respeito e força!</p>
+            <p class="subtitle">Salinha · <span id="modo-label">Modo: Squad</span></p>
+        </div>
+    </header>
+
+    <section class="event-info" id="event-info">
+        <div class="event-row">
+            <span class="event-label">
+                <span class="event-icon">📅</span>
+                Data do Evento:
+                <span class="event-value" id="date-label"></span>
+            </span>
+            <span class="event-label">
+                <span class="event-icon">⏱️</span>
+                Hora de Abertura:
+                <span class="event-value" id="open-label"></span>
+            </span>
+            <span class="event-label">
+                <span class="event-icon">🎮</span>
+                Hora de Início:
+                <span class="event-value" id="start-label"></span>
+            </span>
+        </div>
+        <div class="timer" id="timer"></div>
+    </section>
+
+    <section class="dinamica" id="dinamica-section">
+        <h2>🔹 Dinâmica 🔹</h2>
+        <div id="dinamica-content"></div>
+    </section>
+
+    <section class="regras" id="regras-section">
+        <h2>⚠️ ATENÇÃO ⚠️</h2>
+        <div id="regras-content"></div>
+    </section>
+
+    <div class="action-buttons">
+        <button class="main-btn" onclick="window.location.href='slots.html'">Entrar na Arena</button>
+        <button class="entry-btn" onclick="openEntryModal()">Entrar para o Clã</button>
+    </div>
+
+    <!-- Modal entrar para o clã -->
+    <div id="entry-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeEntryModal()">&times;</span>
+            <h3>Entrar para o Clã</h3>
+            <input type="text" id="entry-nome" placeholder="Seu nome pessoal">
+            <input type="text" id="entry-codnome" placeholder="Nome do personagem no COD">
+            <input type="text" id="entry-codid" placeholder="ID no COD">
+            <button onclick="enviarEntry()">Enviar</button>
+            <div id="entry-status"></div>
+        </div>
+    </div>
+
+    <!-- Modal ADMIN -->
+    <div id="admin-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeAdminModal()">&times;</span>
+            <div id="login-form">
+                <h3>Admin Login</h3>
+                <input type="text" id="admin-usuario" placeholder="Usuário">
+                <input type="password" id="admin-senha" placeholder="Senha">
+                <button onclick="adminLogin()">Entrar</button>
+            </div>
+            <div id="admin-config" style="display:none;">
+                <h3>Editar Evento</h3>
+                <label>Data do Evento:</label>
+                <input type="date" id="event-date">
+                <label>Hora de Abertura:</label>
+                <input type="time" id="event-open">
+                <label>Hora de Início:</label>
+                <input type="time" id="event-start">
+                <button onclick="saveEventData()">Salvar Evento</button>
+
+                <h4>Modo de Jogo</h4>
+                <div class="mode-select">
+                  <label><input type="radio" name="jogo-modo" value="duo" id="modo-duo">Duo</label>
+                  <label><input type="radio" name="jogo-modo" value="squad" id="modo-squad">Squad</label>
+                </div>
+                <button class="save-modo-btn" onclick="saveModoJogo()">Salvar Modo</button>
+
+                <!-- Se desejar manter cadastro de admins, precisaria de backend/DB.
+                     Por segurança, vamos ocultar esta seção por padrão -->
+                <div id="admin-cadastro" style="display:none;">
+                  <h4>Cadastrar Novo Admin</h4>
+                  <input type="text" id="cad-usuario" placeholder="Novo usuário">
+                  <input type="password" id="cad-senha" placeholder="Nova senha">
+                  <button onclick="cadastrarAdmin()">Cadastrar Admin</button>
+                </div>
+
+                <h4>Editar Dinâmica</h4>
+                <textarea id="dinamica-edit" rows="7"></textarea>
+                <button onclick="saveDinamica()">Salvar Dinâmica</button>
+                <h4>Editar Regras</h4>
+                <textarea id="regras-edit" rows="7"></textarea>
+                <button onclick="saveRegras()">Salvar Regras</button>
+                <h4>Logs de Alterações (admin)</h4>
+                <ul id="logs-list"></ul>
+                <button onclick="apagarLogs()" style="background:#444; margin-top:10px;">Apagar Todos Logs</button>
+                <button onclick="logoutAdmin()" style="background:#ff4444; margin-top:12px;">Sair do Painel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Master (Dono) -->
+    <div id="master-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeMasterModal()">&times;</span>
+            <div id="master-login">
+                <h3>Login Master</h3>
+                <input type="password" id="master-senha" placeholder="Senha de dono">
+                <button onclick="masterLogin()">Entrar</button>
+            </div>
+            <div id="master-config" style="display:none;">
+                <h3>Logs de Alterações (dono)</h3>
+                <ul id="master-logs-list"></ul>
+                <button onclick="apagarLogsMaster()" style="background:#444; margin-top:10px;">Apagar Todos Logs</button>
+
+                <!-- Lista de Admins: sem senhas -->
+                <h4>Admins Cadastrados</h4>
+                <ul id="master-admin-list">
+                  <li>Gerenciado no servidor (sem exibir senhas)</li>
+                </ul>
+
+                <button onclick="closeMasterModal()" style="background:#ff4444; margin-top:12px;">Fechar Master</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>𝗕𝗢𝗥𝗔 𝗧𝗥𝗘𝗜𝗡𝗔𝗥 💥 | MATANZA CODM</p>
+        <p>Contato: pandinha | Redes sociais do clã...</p>
+    </footer>
+
+    <!-- Em produção use o JS ofuscado -->
+    <script src="script.obf.js"></script>
+    <script>
+      let masterInput = '';
+      document.addEventListener('keydown', function(e){
+          masterInput += e.key;
+          if(masterInput.length > 20) masterInput = masterInput.slice(-20);
+          if(masterInput.toLowerCase().includes('donoadmin')) {
+              masterInput = '';
+              openMasterModal();
+          }
+      });
+    </script>
+</body>
+</html>
