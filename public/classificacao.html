@@ -48,7 +48,7 @@
       </tbody>
     </table>
   </div>
-  <script src="classificacao.js"></script>
+  <script src="classificacao.obf.js"></script>
   <script>
     // Exibe o modal de login ao clicar no botão (caso queira logar novamente)
     document.getElementById('btn-login-modal').onclick = function() {
@@ -75,7 +75,7 @@
       const erro = document.getElementById('login-erro');
       erro.textContent = "Validando...";
       try {
-        const resp = await fetch('/api/login-table', {
+        const resp = await fetch('/api/auth/login-table', {
           method: "POST",
           headers: {'Content-Type':'application/json'},
           body: JSON.stringify({ username: user, password: pass })
