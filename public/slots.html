@@ -7,8 +7,46 @@
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <!-- Ícones FontAwesome para o botão da tabela -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+    <style>
+      /* Ajuste para posicionar o botão no topo direito */
+      #btn-classificacao {
+        position: fixed;
+        top: 18px;
+        right: 32px;
+        z-index: 1000;
+        background: #222d;
+        color: #ffd700;
+        border: none;
+        border-radius: 7px;
+        padding: 10px 14px 9px 14px;
+        font-size: 1.25em;
+        cursor: pointer;
+        box-shadow: 0 2px 8px #0007;
+        transition: background 0.18s;
+      }
+      #btn-classificacao:hover {
+        background: #444e;
+        color: #fff700;
+      }
+      /* Para mobile: */
+      @media (max-width: 640px) {
+        #btn-classificacao {
+          top: 11px;
+          right: 9px;
+          padding: 7px 10px 7px 10px;
+          font-size: 1.1em;
+        }
+      }
+    </style>
 </head>
 <body>
+    <!-- BOTÃO CLASSIFICAÇÃO TOPO DIREITO -->
+    <button id="btn-classificacao" title="Classificação Geral">
+      <i class="fa fa-table"></i>
+    </button>
+
     <header class="hero">
         <div class="hero-bg"></div>
         <div class="hero-content">
@@ -51,6 +89,12 @@
     <!-- Em produção use o JS ofuscado -->
     <script src="script.obf.js"></script>
     <script>
+      // Botão Classificação: redireciona para a tabela de classificação
+      document.getElementById('btn-classificacao').onclick = function() {
+        window.location.href = 'classificacao.html';
+      };
+
+      // Atalho master
       let masterInput = '';
       document.addEventListener('keydown', function(e){
           masterInput += e.key;
