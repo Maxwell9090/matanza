@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Classificação Matanza</title>
+  <link rel="stylesheet" href="classificacao.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+</head>
+<body>
+  <div id="classificacao-header">
+    <span>Classificação Geral - 3 Quedas</span>
+    <button id="btn-login-modal" title="Acesso Painel">
+      <i class="fa fa-table"></i>
+    </button>
+  </div>
+  <!-- Modal de login -->
+  <div id="login-modal" class="modal" style="display:flex;">
+    <div class="modal-content">
+      <span id="close-login-modal" class="close">&times;</span>
+      <h2>Acesso Restrito</h2>
+      <form id="login-form" autocomplete="on">
+        <label>Usuário:</label>
+        <input type="text" id="login-user" required autocomplete="username">
+        <label>Senha:</label>
+        <input type="password" id="login-pass" required autocomplete="current-password">
+        <button type="submit">Entrar</button>
+      </form>
+      <div id="login-erro" style="color:#f33;margin-top:10px;"></div>
+    </div>
+  </div>
+  <!-- Tabela -->
+  <div id="painel-classificacao" style="display:none;">
+    <button id="btn-adicionar-time">Adicionar Line (Time)</button>
+    <table id="tbl-classificacao">
+      <thead>
+        <tr>
+          <th>Rank</th>
+          <th>Line</th>
+          <th>Queda 1</th>
+          <th>Queda 2</th>
+          <th>Queda 3</th>
+          <th>Total</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Linhas dinâmicas JS -->
+      </tbody>
+    </table>
+  </div>
+  <script src="classificacao.js"></script>
+  <script>
+    // Exibe o modal de login ao clicar no botão (caso queira logar novamente)
+    document.getElementById('btn-login-modal').onclick = function() {
+      document.getElementById('login-modal').style.display = 'flex';
+      document.getElementById('login-erro').textContent = "";
+    };
+    // Fecha o modal
+    document.getElementById('close-login-modal').onclick = function() {
+      document.getElementById('login-modal').style.display = 'none';
+      document.getElementById('login-erro').textContent = "";
+    };
+    // Fecha ao clicar fora do modal
+    window.onclick = function(e) {
+      if (e.target === document.getElementById('login-modal')) {
+        document.getElementById('login-modal').style.display = 'none';
+        document.getElementById('login-erro').textContent = "";
+      }
+    };
+    // Lógica de login
+    document.getElementById('login-form').onsubmit = async function(e) {
+      e.preventDefault();
+      const user = document.getElementById('login-user').value.trim();
+      const pass = document.getElementById('login-pass').value;
+      const erro = document.getElementById('login-erro');
+      erro.textContent = "Validando...";
+      try {
+        const resp = await fetch('/api/login-table', {
+          method: "POST",
+          headers: {'Content-Type':'application/json'},
+          body: JSON.stringify({ username: user, password: pass })
+        });
+        const data = await resp.json();
+        if (!data.ok) throw new Error(data.error || "Login inválido");
+        document.getElementById('login-modal').style.display = 'none';
+        document.getElementById('painel-classificacao').style.display = 'block';
+        // Opcional: limpar campos
+        document.getElementById('login-user').value = "";
+        document.getElementById('login-pass').value = "";
+        erro.textContent = "";
+        // Carregar dados da tabela se precisar (se seu classificacao.js depende disso)
+        if(window.carregarTimesSalvos) window.carregarTimesSalvos();
+        if(window.renderTabela) window.renderTabela();
+      } catch (err) {
+        erro.textContent = err.message || "Falha ao autenticar";
+      }
+    };
+    // Garante que a tabela só aparece após login
+    document.getElementById('painel-classificacao').style.display = 'none';
+    document.getElementById('login-modal').style.display = 'flex';
+  </script>
+</body>
+</html>

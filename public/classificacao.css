@@ -1,0 +1,112 @@
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: #16171a;
+  color: #f3f3f3;
+  margin: 0;
+  padding: 0;
+}
+
+#classificacao-header {
+  background: #222;
+  color: #fff;
+  font-size: 1.3em;
+  padding: 16px 25px 16px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#btn-login-modal {
+  background: #333;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 1.4em;
+  cursor: pointer;
+  padding: 8px 12px;
+  transition: background 0.15s;
+}
+#btn-login-modal:hover { background: #444; }
+
+#painel-classificacao {
+  max-width: 900px;
+  margin: 30px auto;
+  background: #23242a;
+  border-radius: 8px;
+  padding: 32px 20px;
+  box-shadow: 0 8px 32px #000a;
+}
+
+#btn-adicionar-time {
+  background: #4caf50;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  padding: 7px 16px;
+  margin-bottom: 16px;
+  cursor: pointer;
+}
+
+#tbl-classificacao {
+  width: 100%;
+  border-collapse: collapse;
+  background: #23242a;
+  margin-bottom: 20px;
+}
+
+#tbl-classificacao th, #tbl-classificacao td {
+  padding: 8px 8px;
+  text-align: center;
+  font-size: 1em;
+}
+
+#tbl-classificacao th {
+  background: #252a30;
+  color: #ffd700;
+}
+
+#tbl-classificacao tr:nth-child(even) { background: #22242a; }
+#tbl-classificacao tr:nth-child(odd) { background: #23242a; }
+
+input[type="number"], select, input[type="text"] {
+  width: 60px;
+  padding: 2px 4px;
+  font-size: 1em;
+  border-radius: 4px;
+  border: 1px solid #444;
+  background: #181a1e;
+  color: #fff;
+}
+input[type="text"] { width: 110px; }
+
+.rank-up { color: #4caf50; font-size: 1.2em; font-weight: bold; }
+.rank-down { color: #ff5252; font-size: 1.2em; font-weight: bold; }
+
+.modal {
+  display: none;
+  position: fixed; z-index: 999;
+  left: 0; top: 0; width: 100vw; height: 100vh;
+  background: rgba(0,0,0,0.7);
+}
+.modal-content {
+  background: #23242a;
+  color: #fff;
+  margin: 90px auto;
+  padding: 30px 20px 25px;
+  border-radius: 8px;
+  width: 320px;
+  box-shadow: 0 8px 30px #000b;
+  position: relative;
+}
+.close {
+  color: #fff;
+  position: absolute;
+  right: 14px; top: 10px;
+  font-size: 32px;
+  font-weight: bold;
+  cursor: pointer;
+}
+#login-form input { width: 90%; margin-bottom: 12px; }
+#login-form button { width: 100%; background: #4caf50; color: #fff; border: none; padding: 8px 0; border-radius: 4px; font-size: 1.1em; }
+#login-erro { color: #f66; font-size: 0.97em; min-height: 18px; margin-top: 6px; }
