@@ -104,6 +104,7 @@ body {
   position: fixed; z-index: 999;
   left: 0; top: 0; width: 100vw; height: 100vh;
   background: rgba(0,0,0,0.7);
+  overflow-y: auto;
 }
 .modal-content {
   background: #23242a;
@@ -115,9 +116,6 @@ body {
   box-shadow: 0 8px 30px #000b;
   position: relative;
   border: 2.5px solid #ef233c;
-  max-height: 97vh;
-  overflow-y: auto;
-  min-width: 240px;
 }
 .login-admin {
   border: 2.5px solid #ffd700;
@@ -246,23 +244,23 @@ input[type="text"] { width: 110px; }
 /* Modal login responsivo */
 @media (max-width: 600px) {
   .modal-content, .modal-content.login-admin {
-    width: 92vw;
+    width: 97vw;
     max-width: 98vw;
     min-width: unset;
-    padding: 22px 7vw 18px 7vw;
-    margin: 30px auto;
+    padding: 18px 3vw 14px 3vw;
+    margin: 8vw auto;
     box-sizing: border-box;
-    max-height: 92vh;
-    overflow-y: auto;
+    max-height: unset;
+    height: auto;
   }
 }
 
 /* Modal ainda mais compacto em telas muito pequenas */
 @media (max-width: 400px) {
   .modal-content, .modal-content.login-admin {
-    padding: 15px 2vw 10px 2vw;
-    margin: 10px auto;
-    width: 98vw;
+    padding: 10px 1vw 8px 1vw;
+    margin: 5vw auto;
+    width: 99vw;
   }
 }
 
