@@ -6,6 +6,66 @@ body {
   padding: 0;
 }
 
+/* ======= HERO/LOGO ======= */
+.hero {
+  position: relative;
+  width: 100vw;
+  min-height: 180px;
+  max-height: 230px;
+  background: linear-gradient(90deg,#1e2227 60%,#ef233c 100%);
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+.hero-bg {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: url('matanza.jpg') center/cover no-repeat;
+  opacity: 0.05;
+  z-index: 1;
+}
+.hero-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 100%;
+  padding: 30px 0 0 30px;
+}
+.clan-logo {
+  width: 95px;
+  height: 95px;
+  border-radius: 11px;
+  object-fit: cover;
+  margin-right: 28px;
+  border: 2.5px solid #ffd700;
+  background: #23242a;
+  box-shadow: 0 6px 32px #0008;
+}
+.main-title {
+  font-family: 'Orbitron', 'Segoe UI', Arial, sans-serif;
+  font-size: 2.3em;
+  font-weight: 900;
+  color: #ffd700;
+  text-shadow: 2px 2px 10px #ef233c80, 0 2px 2px #000a;
+  margin: 0;
+}
+.subtitle {
+  font-family: 'Orbitron', Arial, sans-serif;
+  color: #fff;
+  font-size: 1.2em;
+  margin-top: 8px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin-left: 6px;
+}
+@media (max-width: 600px) {
+  .hero-content { flex-direction: column; align-items: flex-start; padding: 18px 0 0 10px; }
+  .clan-logo { width: 60px; height: 60px; margin: 0 0 8px 0; }
+  .main-title { font-size: 1.4em; }
+}
+
+/* ======= HEADER ======= */
 #classificacao-header {
   background: #222;
   color: #fff;
@@ -28,12 +88,88 @@ body {
 }
 #btn-login-modal:hover { background: #444; }
 
+.login-logo {
+  display: block;
+  margin: 0 auto 18px auto;
+  width: 65px;
+  border-radius: 8px;
+  border: 2.5px solid #ffd700;
+  background: #23242a;
+  box-shadow: 0 2px 12px #ef233c60;
+}
+
+/* ======= MODAL LOGIN ======= */
+.modal {
+  display: none;
+  position: fixed; z-index: 999;
+  left: 0; top: 0; width: 100vw; height: 100vh;
+  background: rgba(0,0,0,0.7);
+}
+.modal-content {
+  background: #23242a;
+  color: #fff;
+  margin: 90px auto;
+  padding: 30px 25px 25px;
+  border-radius: 8px;
+  width: 340px;
+  box-shadow: 0 8px 30px #000b;
+  position: relative;
+  border: 2.5px solid #ef233c;
+}
+.login-admin {
+  border: 2.5px solid #ffd700;
+  box-shadow: 0 4px 32px #000b, 0 0 0 2px #ef233c80;
+  background: #23242a;
+}
+.close {
+  color: #fff;
+  position: absolute;
+  right: 14px; top: 10px;
+  font-size: 32px;
+  font-weight: bold;
+  cursor: pointer;
+}
+#login-form input {
+  width: 92%;
+  margin-bottom: 13px;
+  font-size: 1.06em;
+  padding: 7px 8px;
+  border-radius: 4px;
+  border: 1.7px solid #444;
+  background: #181a1e;
+  color: #fff;
+  outline: none;
+  transition: border 0.15s;
+}
+#login-form input:focus { border: 1.7px solid #ffd700; }
+#login-form button {
+  width: 100%;
+  background: linear-gradient(90deg,#ef233c 40%,#ffd700 100%);
+  color: #23242a;
+  border: none;
+  padding: 10px 0;
+  border-radius: 4px;
+  font-size: 1.13em;
+  font-weight: bold;
+  margin-top: 8px;
+  letter-spacing: 0.5px;
+  box-shadow: 0 2px 8px #0004;
+}
+#login-erro {
+  color: #f66;
+  font-size: 0.97em;
+  min-height: 18px;
+  margin-top: 8px;
+  text-align: center;
+}
+
+/* ======= CLASSIFICACAO PAINEL E TABELA ======= */
 #painel-classificacao {
-  max-width: 900px;
-  margin: 30px auto;
+  max-width: 950px;
+  margin: 32px auto 30px auto;
   background: #23242a;
   border-radius: 8px;
-  padding: 32px 20px;
+  padding: 32px 20px 30px 20px;
   box-shadow: 0 8px 32px #000a;
 }
 
@@ -43,29 +179,42 @@ body {
   border: none;
   border-radius: 4px;
   font-weight: bold;
-  padding: 7px 16px;
+  padding: 9px 18px;
   margin-bottom: 16px;
   cursor: pointer;
+  font-size: 1.08em;
+  letter-spacing: 0.5px;
+  transition: background 0.16s;
+}
+#btn-adicionar-time:hover {
+  background: #388e3c;
 }
 
 #tbl-classificacao {
   width: 100%;
-  border-collapse: collapse;
+  border-collapse: separate;
+  border-spacing: 0 8px;
   background: #23242a;
-  margin-bottom: 20px;
+  box-shadow: 0 4px 22px #000a;
+  border: 2.5px solid #ef233c;
+  margin-bottom: 24px;
+  border-radius: 9px;
+  overflow: hidden;
 }
-
 #tbl-classificacao th, #tbl-classificacao td {
-  padding: 8px 8px;
+  border-bottom: 1.5px solid #ef233c;
+  padding: 14px 12px;
   text-align: center;
-  font-size: 1em;
+  font-size: 1.05em;
 }
-
 #tbl-classificacao th {
   background: #252a30;
   color: #ffd700;
+  border-bottom: 2.5px solid #ef233c;
 }
-
+#tbl-classificacao tr:last-child td {
+  border-bottom: none;
+}
 #tbl-classificacao tr:nth-child(even) { background: #22242a; }
 #tbl-classificacao tr:nth-child(odd) { background: #23242a; }
 
@@ -82,31 +231,3 @@ input[type="text"] { width: 110px; }
 
 .rank-up { color: #4caf50; font-size: 1.2em; font-weight: bold; }
 .rank-down { color: #ff5252; font-size: 1.2em; font-weight: bold; }
-
-.modal {
-  display: none;
-  position: fixed; z-index: 999;
-  left: 0; top: 0; width: 100vw; height: 100vh;
-  background: rgba(0,0,0,0.7);
-}
-.modal-content {
-  background: #23242a;
-  color: #fff;
-  margin: 90px auto;
-  padding: 30px 20px 25px;
-  border-radius: 8px;
-  width: 320px;
-  box-shadow: 0 8px 30px #000b;
-  position: relative;
-}
-.close {
-  color: #fff;
-  position: absolute;
-  right: 14px; top: 10px;
-  font-size: 32px;
-  font-weight: bold;
-  cursor: pointer;
-}
-#login-form input { width: 90%; margin-bottom: 12px; }
-#login-form button { width: 100%; background: #4caf50; color: #fff; border: none; padding: 8px 0; border-radius: 4px; font-size: 1.1em; }
-#login-erro { color: #f66; font-size: 0.97em; min-height: 18px; margin-top: 6px; }
