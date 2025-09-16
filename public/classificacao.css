@@ -105,17 +105,21 @@ body {
   left: 0; top: 0; width: 100vw; height: 100vh;
   background: rgba(0,0,0,0.7);
   overflow-y: auto;
+  /* Nova centralização */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .modal-content {
   background: #23242a;
   color: #fff;
-  margin: 90px auto;
   padding: 30px 25px 25px;
   border-radius: 8px;
   width: 340px;
   box-shadow: 0 8px 30px #000b;
   position: relative;
   border: 2.5px solid #ef233c;
+  /* Remova max-height/margin */
 }
 .login-admin {
   border: 2.5px solid #ffd700;
@@ -243,24 +247,30 @@ input[type="text"] { width: 110px; }
 
 /* Modal login responsivo */
 @media (max-width: 600px) {
+  .modal {
+    align-items: flex-start; /* Alinha no topo no mobile */
+    padding-top: 4vh;      /* Espaço acima no mobile */
+  }
   .modal-content, .modal-content.login-admin {
-    width: 97vw;
+    width: 95vw;
     max-width: 98vw;
-    min-width: unset;
-    padding: 18px 3vw 14px 3vw;
-    margin: 8vw auto;
+    padding: 22px 3vw 18px 3vw;
     box-sizing: border-box;
-    max-height: unset;
-    height: auto;
+    /* Remove altura fixa */
+  }
+  #login-form input {
+    font-size: 0.98em;    /* Inputs menores */
+    margin-bottom: 11px;
+  }
+  #login-form button {
+    font-size: 1.05em;    /* Botão menor */
   }
 }
 
 /* Modal ainda mais compacto em telas muito pequenas */
 @media (max-width: 400px) {
   .modal-content, .modal-content.login-admin {
-    padding: 10px 1vw 8px 1vw;
-    margin: 5vw auto;
-    width: 99vw;
+    padding: 14px 2vw 10px 2vw;
   }
 }
 
