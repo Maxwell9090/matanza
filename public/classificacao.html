@@ -2,6 +2,7 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Classificação Matanza</title>
   <link rel="stylesheet" href="classificacao.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
@@ -13,8 +14,10 @@
     <div class="hero-bg"></div>
     <div class="hero-content">
         <img src="matanza.jpg" alt="Logo Matanza CODM" class="clan-logo">
-        <h1 class="main-title">MATANZA CODM</h1>
-        <p class="subtitle">Classificação Geral</p>
+        <div class="title-container">
+          <h1 class="main-title">MATANZA CODM</h1>
+          <p class="subtitle">Classificação Geral</p>
+        </div>
     </div>
   </header>
 
@@ -24,41 +27,57 @@
       <i class="fa fa-table"></i>
     </button>
   </div>
+  
   <!-- Modal de login -->
-  <div id="login-modal" class="modal" style="display:flex;">
+  <div id="login-modal" class="modal">
     <div class="modal-content">
       <span id="close-login-modal" class="close">&times;</span>
+      <img src="matanza.jpg" alt="Logo Matanza CODM" class="login-logo">
       <h2>Acesso Restrito</h2>
       <form id="login-form" autocomplete="on">
-        <label>Usuário:</label>
-        <input type="text" id="login-user" required autocomplete="username">
-        <label>Senha:</label>
-        <input type="password" id="login-pass" required autocomplete="current-password">
+        <div class="input-group">
+          <label>Usuário:</label>
+          <div class="input-icon-container">
+            <input type="text" id="login-user" required autocomplete="username">
+            <i class="fa fa-user input-icon"></i>
+          </div>
+        </div>
+        <div class="input-group">
+          <label>Senha:</label>
+          <div class="input-icon-container">
+            <input type="password" id="login-pass" required autocomplete="current-password">
+            <i class="fa fa-lock input-icon"></i>
+          </div>
+        </div>
         <button type="submit">Entrar</button>
       </form>
-      <div id="login-erro" style="color:#f33;margin-top:10px;"></div>
+      <div id="login-erro"></div>
     </div>
   </div>
+  
   <!-- Tabela -->
-  <div id="painel-classificacao" style="display:none;">
+  <div id="painel-classificacao">
     <button id="btn-adicionar-time">Adicionar Line (Time)</button>
-    <table id="tbl-classificacao">
-      <thead>
-        <tr>
-          <th>Rank</th>
-          <th>Line</th>
-          <th>Queda 1</th>
-          <th>Queda 2</th>
-          <th>Queda 3</th>
-          <th>Total</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- Linhas dinâmicas JS -->
-      </tbody>
-    </table>
+    <div class="table-responsive">
+      <table id="tbl-classificacao">
+        <thead>
+          <tr>
+            <th>Rank</th>
+            <th>Line</th>
+            <th>Queda 1</th>
+            <th>Queda 2</th>
+            <th>Queda 3</th>
+            <th>Total</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Linhas dinâmicas JS -->
+        </tbody>
+      </table>
+    </div>
   </div>
+  
   <script src="classificacao.obf.js"></script>
   <script>
     // Exibe o modal de login ao clicar no botão (caso queira logar novamente)
@@ -66,11 +85,13 @@
       document.getElementById('login-modal').style.display = 'flex';
       document.getElementById('login-erro').textContent = "";
     };
+    
     // Fecha o modal
     document.getElementById('close-login-modal').onclick = function() {
       document.getElementById('login-modal').style.display = 'none';
       document.getElementById('login-erro').textContent = "";
     };
+    
     // Fecha ao clicar fora do modal
     window.onclick = function(e) {
       if (e.target === document.getElementById('login-modal')) {
@@ -78,6 +99,7 @@
         document.getElementById('login-erro').textContent = "";
       }
     };
+    
     // Lógica de login
     document.getElementById('login-form').onsubmit = async function(e) {
       e.preventDefault();
@@ -85,6 +107,7 @@
       const pass = document.getElementById('login-pass').value;
       const erro = document.getElementById('login-erro');
       erro.textContent = "Validando...";
+      
       try {
         const resp = await fetch('/api/auth/login-table', {
           method: "POST",
@@ -93,22 +116,35 @@
         });
         const data = await resp.json();
         if (!data.ok) throw new Error(data.error || "Login inválido");
+        
         document.getElementById('login-modal').style.display = 'none';
         document.getElementById('painel-classificacao').style.display = 'block';
-        // Opcional: limpar campos
+        
+        // Limpar campos
         document.getElementById('login-user').value = "";
         document.getElementById('login-pass').value = "";
         erro.textContent = "";
-        // Carregar dados da tabela se precisar (se seu classificacao.js depende disso)
-        if(window.carregarTimesSalvos) window.carregarTimesSalvos();
-        if(window.renderTabela) window.renderTabela();
+        
+        // Carregar dados da tabela
+        if(typeof window.carregarTimesSalvos === 'function') window.carregarTimesSalvos();
+        if(typeof window.renderTabela === 'function') window.renderTabela();
+        
       } catch (err) {
         erro.textContent = err.message || "Falha ao autenticar";
       }
     };
+    
     // Garante que a tabela só aparece após login
     document.getElementById('painel-classificacao').style.display = 'none';
     document.getElementById('login-modal').style.display = 'flex';
+    
+    // Verificação do arquivo JS para debug - tente pré-carregar
+    document.addEventListener('DOMContentLoaded', function() {
+      // Verifica se o JS foi carregado corretamente
+      if (typeof window.carregarTimesSalvos !== 'function' || typeof window.renderTabela !== 'function') {
+        console.warn('Funções do classificacao.obf.js não foram encontradas. Verificando...');
+      }
+    });
   </script>
 </body>
 </html>
