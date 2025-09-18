@@ -78,6 +78,22 @@
     </div>
   </div>
   
+  <!-- Firebase App (compat) -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyCFV7mxop8JjAZ4zxNmKq9MHthJy13hufc",
+      authDomain: "matanza-f949b.firebaseapp.com",
+      databaseURL: "https://matanza-f949b-default-rtdb.firebaseio.com",
+      projectId: "matanza-f949b",
+      storageBucket: "matanza-f949b.appspot.com",
+      messagingSenderId: "277696327419",
+      appId: "1:277696327419:web:742bfa0e9cc33bf23e8a5e"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+  </script>
   <script src="classificacao.obf.js"></script>
   <script>
     // Exibe o modal de login ao clicar no botão (caso queira logar novamente)
