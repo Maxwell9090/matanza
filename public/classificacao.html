@@ -98,20 +98,38 @@
   <script src="classificacao.obf.js"></script>
 
   <script>
-    // Lógica de login (sem alterações)
+    // Elementos do DOM
+    const loginModal = document.getElementById('login-modal');
+    const painelClassificacao = document.getElementById('painel-classificacao');
+    const loginForm = document.getElementById('login-form');
+
+    // Verifica a sessão ao carregar a página
+    document.addEventListener('DOMContentLoaded', function() {
+      if (sessionStorage.getItem('classificacaoAutenticado') === 'true') {
+        loginModal.style.display = 'none';
+        painelClassificacao.style.display = 'block';
+      } else {
+        painelClassificacao.style.display = 'none';
+        loginModal.style.display = 'flex';
+      }
+    });
+
+    // Lógica dos botões do modal
     document.getElementById('btn-login-modal').onclick = function() {
-      document.getElementById('login-modal').style.display = 'flex';
+      loginModal.style.display = 'flex';
       document.getElementById('login-erro').textContent = "";
     };
     document.getElementById('close-login-modal').onclick = function() {
-      document.getElementById('login-modal').style.display = 'none';
+      loginModal.style.display = 'none';
     };
     window.onclick = function(e) {
-      if (e.target === document.getElementById('login-modal')) {
-        document.getElementById('login-modal').style.display = 'none';
+      if (e.target === loginModal) {
+        loginModal.style.display = 'none';
       }
     };
-    document.getElementById('login-form').onsubmit = async function(e) {
+
+    // Lógica de submissão do formulário de login
+    loginForm.onsubmit = async function(e) {
       e.preventDefault();
       const user = document.getElementById('login-user').value.trim();
       const pass = document.getElementById('login-pass').value;
@@ -125,8 +143,12 @@
         });
         const data = await resp.json();
         if (!data.ok) throw new Error(data.error || "Login inválido");
-        document.getElementById('login-modal').style.display = 'none';
-        document.getElementById('painel-classificacao').style.display = 'block';
+
+        // SALVA O ESTADO DE AUTENTICAÇÃO NA SESSÃO
+        sessionStorage.setItem('classificacaoAutenticado', 'true');
+        
+        loginModal.style.display = 'none';
+        painelClassificacao.style.display = 'block';
         document.getElementById('login-user').value = "";
         document.getElementById('login-pass').value = "";
         erro.textContent = "";
@@ -134,8 +156,6 @@
         erro.textContent = err.message || "Falha ao autenticar";
       }
     };
-    document.getElementById('painel-classificacao').style.display = 'none';
-    document.getElementById('login-modal').style.display = 'flex';
   </script>
 </body>
 </html>
