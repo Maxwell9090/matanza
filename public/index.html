@@ -153,6 +153,25 @@
     </footer>
 
     <!-- Em produção use o JS ofuscado -->
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+    <script>
+    // Configuração do Firebase
+    const firebaseConfig = {
+        apiKey: "AIzaSyCFV7mxop8JjAZ4zxNmKq9MHthJy13hufc",
+        authDomain: "matanza-f949b.firebaseapp.com",
+        databaseURL: "https://matanza-f949b-default-rtdb.firebaseio.com",
+        projectId: "matanza-f949b",
+        storageBucket: "matanza-f949b.appspot.com",
+        messagingSenderId: "277696327419",
+        appId: "1:277696327419:web:742bfa0e9cc33bf23e8a5e"
+    };
+    firebase.initializeApp(firebaseConfig);
+    window.db = firebase.database(); // <-- Torna db global!
+    </script>
+
+    <!-- Agora seu script principal -->
     <script src="script.obf.js"></script>
     <script>
       let masterInput = '';
