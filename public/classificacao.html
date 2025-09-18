@@ -17,15 +17,11 @@
           <h1 class="main-title">MATANZA CODM</h1>
           <p class="subtitle">Classificação Geral</p>
         </div>
+        <button id="btn-login-modal" title="Acesso Painel">
+          <i class="fa fa-table"></i>
+        </button>
     </div>
   </header>
-
-  <div id="classificacao-header">
-    <span>Classificação Geral - 3 Quedas</span>
-    <button id="btn-login-modal" title="Acesso Painel">
-      <i class="fa fa-table"></i>
-    </button>
-  </div>
   
   <div id="login-modal" class="modal">
     <div class="modal-content">
@@ -35,17 +31,11 @@
       <form id="login-form" autocomplete="on">
         <div class="input-group">
           <label>Usuário:</label>
-          <div class="input-icon-container">
-            <input type="text" id="login-user" required autocomplete="username">
-            <i class="fa fa-user input-icon"></i>
-          </div>
+          <div class="input-icon-container"><input type="text" id="login-user" required autocomplete="username"><i class="fa fa-user input-icon"></i></div>
         </div>
         <div class="input-group">
           <label>Senha:</label>
-          <div class="input-icon-container">
-            <input type="password" id="login-pass" required autocomplete="current-password">
-            <i class="fa fa-lock input-icon"></i>
-          </div>
+          <div class="input-icon-container"><input type="password" id="login-pass" required autocomplete="current-password"><i class="fa fa-lock input-icon"></i></div>
         </div>
         <button type="submit">Entrar</button>
       </form>
@@ -55,7 +45,7 @@
   
   <div id="painel-classificacao">
     <div class="botoes-acao">
-      <button id="btn-adicionar-time">Adicionar Line (Time)</button>
+      <button id="btn-adicionar-time" class="btn-acao">Adicionar Line</button>
       <button id="btn-limpar-tabela" class="btn-perigo">Limpar Tabela</button>
       <button id="btn-exportar-pdf" class="btn-secundario">Exportar para PDF</button>
     </div>
@@ -78,10 +68,17 @@
       </table>
     </div>
   </div>
+
+  <div id="pdf-export-content" style="display: none;">
+    <img src="matanza.jpg" class="pdf-logo">
+    <h1>Classificação Geral - Matanza CODM</h1>
+    <p class="pdf-data"></p>
+    <div id="pdf-table-container"></div>
+    <footer>MATANZA CODM</footer>
+  </div>
   
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
-  
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
   <script>

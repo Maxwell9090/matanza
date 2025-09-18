@@ -1,414 +1,330 @@
+/* =======================================================
+   Base e Fontes
+   ======================================================= */
 body {
-  font-family: 'Segoe UI', Arial, sans-serif;
-  background: #16171a;
+  font-family: 'Orbitron', 'Segoe UI', Arial, sans-serif;
+  background: #16161a;
   color: #f3f3f3;
   margin: 0;
   padding: 0;
+  overflow-x: hidden; /* Previne scroll horizontal indesejado */
 }
 
-/* ======= HERO/LOGO ======= */
+/* =======================================================
+   Hero Header (Estilo da Home Page)
+   ======================================================= */
 .hero {
   position: relative;
   width: 100%;
   min-height: 180px;
-  max-height: 230px;
-  background: linear-gradient(90deg,#1e2227 60%,#ef233c 100%);
+  background: #18181c;
+  border-bottom: 3px solid #ff2222;
+  box-shadow: 0 4px 20px #ff222288;
   overflow: hidden;
-  margin-bottom: 16px;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  padding: 0 30px;
+  box-sizing: border-box;
 }
 .hero-bg {
   position: absolute;
   top: 0; left: 0; width: 100%; height: 100%;
-  background: url('matanza.jpg') center/cover no-repeat;
-  opacity: 0.05;
+  background: url('codmobile-hero2.jpg') center/cover no-repeat;
+  opacity: 0.1;
   z-index: 1;
 }
 .hero-content {
   position: relative;
   z-index: 2;
   display: flex;
-  flex-direction: row;
   align-items: center;
-  height: 100%;
-  padding: 30px 0 0 30px;
+  width: 100%;
+  justify-content: space-between;
 }
 .title-container {
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  gap: 28px;
 }
 .clan-logo {
   width: 95px;
   height: 95px;
   border-radius: 11px;
-  object-fit: cover;
-  margin-right: 28px;
   border: 2.5px solid #ffd700;
-  background: #23242a;
   box-shadow: 0 6px 32px #0008;
 }
 .main-title {
-  font-family: 'Orbitron', 'Segoe UI', Arial, sans-serif;
   font-size: 2.3em;
   font-weight: 900;
-  color: #ffd700;
-  text-shadow: 2px 2px 10px #ef233c80, 0 2px 2px #000a;
-  margin: 0;
+  color: #ff2222;
+  text-shadow: 0 0 12px #ff2222;
 }
 .subtitle {
-  font-family: 'Orbitron', Arial, sans-serif;
   color: #fff;
   font-size: 1.2em;
   margin-top: 8px;
   font-weight: 700;
   letter-spacing: 1px;
-  margin-left: 6px;
 }
-@media (max-width: 600px) {
-  .hero-content { flex-direction: column; align-items: flex-start; padding: 18px 0 0 10px; }
-  .clan-logo { width: 60px; height: 60px; margin: 0 0 8px 0; }
-  .main-title { font-size: 1.4em; }
-}
-
-/* ======= HEADER ======= */
-#classificacao-header {
-  background: #222;
-  color: #fff;
-  font-size: 1.3em;
-  padding: 16px 25px 16px 16px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
 #btn-login-modal {
-  background: #333;
-  color: #fff;
+  font-size: 2rem;
+  color: #ff2222;
+  cursor: pointer;
+  background: none;
   border: none;
-  border-radius: 4px;
-  font-size: 1.4em;
-  cursor: pointer;
-  padding: 8px 12px;
-  transition: background 0.15s;
+  transition: color 0.2s, transform 0.2s;
+  filter: drop-shadow(0 0 8px #ff2222);
 }
-#btn-login-modal:hover { background: #444; }
-
-/* ======= MODAL LOGIN ======= */
-.modal {
-  display: none;
-  position: fixed; 
-  z-index: 999;
-  left: 0; 
-  top: 0; 
-  width: 100%; 
-  height: 100%;
-  background: rgba(0,0,0,0.7);
-  align-items: center;
-  justify-content: center;
+#btn-login-modal:hover {
+  color: #0fa;
+  transform: scale(1.1);
+  filter: drop-shadow(0 0 12px #0fa);
 }
 
-.modal-content {
-  background: #23242a;
-  color: #fff;
-  padding: 25px;
-  border-radius: 8px;
-  width: 320px;
-  box-shadow: 0 8px 30px #000b;
-  position: relative;
-  border: 2.5px solid #ef233c;
-  max-height: 90vh;
-  overflow-y: auto;
-}
-
-.login-logo {
-  display: block;
-  margin: 0 auto 18px auto;
-  width: 65px;
-  border-radius: 8px;
-  border: 2.5px solid #ffd700;
-  background: #23242a;
-  box-shadow: 0 2px 12px #ef233c60;
-}
-
-.close {
-  color: #fff;
-  position: absolute;
-  right: 14px; 
-  top: 10px;
-  font-size: 28px;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-.input-group {
-  margin-bottom: 15px;
-}
-
-.input-group label {
-  display: block;
-  margin-bottom: 5px;
-  font-weight: 500;
-}
-
-.input-icon-container {
-  position: relative;
-}
-
-.input-icon {
-  position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: #777;
-}
-
-#login-form input {
-  width: 100%;
-  padding: 10px;
-  border-radius: 4px;
-  border: 1.7px solid #444;
-  background: #181a1e;
-  color: #fff;
-  outline: none;
-  transition: border 0.15s;
-  box-sizing: border-box;
-  padding-right: 35px;
-}
-
-#login-form input:focus { 
-  border: 1.7px solid #ffd700; 
-}
-
-#login-form button {
-  width: 100%;
-  background: linear-gradient(90deg,#ef233c 40%,#ffd700 100%);
-  color: #fff;
-  border: none;
-  padding: 12px 0;
-  border-radius: 4px;
-  font-size: 1.1em;
-  font-weight: bold;
-  margin-top: 8px;
-  letter-spacing: 0.5px;
-  box-shadow: 0 2px 8px #0004;
-  cursor: pointer;
-  text-shadow: 0 1px 2px rgba(0,0,0,0.3);
-  transition: transform 0.2s, box-shadow 0.2s;
-}
-
-#login-form button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-}
-
-#login-erro {
-  color: #f66;
-  font-size: 0.9em;
-  min-height: 18px;
-  margin-top: 12px;
-  text-align: center;
-}
-
-/* ======= CLASSIFICACAO PAINEL E TABELA ======= */
+/* =======================================================
+   Painel e Botões de Ação
+   ======================================================= */
 #painel-classificacao {
-  max-width: 950px;
-  margin: 32px auto 30px auto;
-  background: #23242a;
-  border-radius: 8px;
-  padding: 32px 20px 30px 20px;
-  box-shadow: 0 8px 32px #000a;
-  display: none;
+  max-width: 1200px;
+  margin: 32px auto;
+  background: rgba(34,34,34,0.93);
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 4px 24px #111, 0 0 24px #ff2222;
 }
-
-#btn-adicionar-time {
-  background: #4caf50;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
+.botoes-acao {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+.btn-acao, .btn-perigo, .btn-secundario {
+  padding: 12px 28px;
+  border-radius: 20px;
+  font-size: 1rem;
   font-weight: bold;
-  padding: 9px 18px;
-  margin-bottom: 16px;
+  text-decoration: none;
+  border: none;
+  transition: all 0.2s;
   cursor: pointer;
-  font-size: 1.08em;
-  letter-spacing: 0.5px;
-  transition: background 0.16s;
+  letter-spacing: 1px;
+  font-family: 'Orbitron', sans-serif;
+}
+.btn-acao { /* Adicionar */
+  background: linear-gradient(90deg, #0fa 0%, #fff 100%);
+  color: #18181c;
+  box-shadow: 0 0 20px #0fa, 0 0 10px #fff;
+}
+.btn-acao:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 30px #0fa, 0 0 15px #fff;
+}
+.btn-perigo { /* Limpar */
+  background: linear-gradient(90deg, #ff2222 0%, #ff8888 100%);
+  color: #fff;
+  box-shadow: 0 0 20px #ff2222, 0 0 10px #fff;
+}
+.btn-perigo:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 30px #ff2222, 0 0 15px #fff;
+}
+.btn-secundario { /* PDF */
+  background: #444;
+  color: #fff;
+  border: 2px solid #666;
+}
+.btn-secundario:hover {
+  background: #555;
+  border-color: #888;
+  transform: translateY(-2px);
 }
 
-#btn-adicionar-time:hover {
-  background: #388e3c;
-}
-
+/* =======================================================
+   Tabela de Classificação
+   ======================================================= */
 .table-responsive {
   width: 100%;
   overflow-x: auto;
-  border-radius: 8px;
-  border: 2.5px solid #ef233c;
+  border: 3px solid #ff2222;
+  border-radius: 12px;
+  box-shadow: 0 0 30px #ff2222aa, 0 0 40px #111 inset;
 }
-
 #tbl-classificacao {
   width: 100%;
   border-collapse: collapse;
-  background: #23242a;
-  box-shadow: 0 4px 22px #000a;
-  margin-bottom: 0;
-  min-width: 540px;
+  background: #18181c;
+  min-width: 900px;
 }
-
-#tbl-classificacao th, 
-#tbl-classificacao td {
-  border: 1px solid #ef233c;
-  padding: 14px 12px;
-  text-align: center;
-  font-size: 1.05em;
-}
-
-#tbl-classificacao th {
-  background: #252a30;
-  color: #ffd700;
-  border-bottom: 2.5px solid #ef233c;
-}
-
-#tbl-classificacao tr:nth-child(even) { 
-  background: #22242a; 
-}
-
-#tbl-classificacao tr:nth-child(odd) { 
-  background: #23242a; 
-}
-
-#tbl-classificacao tr:hover {
-  background: #2a2d35;
-}
-
-input[type="number"], 
-select, 
-input[type="text"] {
-  width: 60px;
-  padding: 2px 4px;
-  font-size: 1em;
-  border-radius: 4px;
+#tbl-classificacao th, #tbl-classificacao td {
   border: 1px solid #444;
-  background: #181a1e;
-  color: #fff;
+  padding: 12px;
+  text-align: center;
+  vertical-align: middle;
+}
+#tbl-classificacao th {
+  background: #222;
+  color: #ff2222;
+  font-size: 1.1em;
+  letter-spacing: 1px;
+}
+#tbl-classificacao tr:nth-child(even) { background: #202024; }
+#tbl-classificacao tr:hover { background: #2a2d35; }
+
+#tbl-classificacao input, #tbl-classificacao select {
+  background: #1b1b1b; color: #fff; border: 1px solid #555;
+  border-radius: 6px; padding: 6px 8px; font-size: 0.95rem;
+  width: auto; box-sizing: border-box; font-family: 'Orbitron', sans-serif;
+  transition: border 0.2s; text-align: center;
+}
+#tbl-classificacao input:focus, #tbl-classificacao select:focus {
+  border-color: #0fa; outline: none;
+}
+#tbl-classificacao input[type="text"] { width: 140px; }
+#tbl-classificacao input[type="number"] { width: 50px; }
+#tbl-classificacao select { width: 60px; }
+.kill-input { margin: 0 8px; }
+.pontos-queda { font-weight: bold; color: #ffd700; display: block; margin-top: 6px; }
+
+.rank-cell { font-size: 1.3em; font-weight: bold; color: #ff2222; }
+.total-cell { font-weight: bold; color: #0fa; font-size: 1.2em; }
+.btn-remover {
+  background: #ff2222; color: #fff; border: none; border-radius: 50%;
+  width: 30px; height: 30px; font-weight: bold; cursor: pointer;
+  transition: background 0.2s;
+}
+.btn-remover:hover { background: #fff; color: #ff2222; }
+
+.rank-up, .rank-down {
+  font-size: 0.8em; margin-left: 8px; vertical-align: middle;
+}
+.rank-up { color: #4caf50; }
+.rank-down { color: #f44336; }
+
+/* =======================================================
+   Estilos para o Conteúdo do PDF (Oculto na página)
+   ======================================================= */
+#pdf-export-content {
+  font-family: Arial, sans-serif; color: #000;
+  width: 1056px; padding: 20px;
+}
+.pdf-logo { display: block; width: 120px; margin: 0 auto 20px auto; }
+#pdf-export-content h1 {
+  text-align: center; font-size: 24px; color: #c00; margin-bottom: 5px;
+}
+.pdf-data { text-align: center; font-size: 14px; margin-bottom: 25px; }
+#pdf-export-content table {
+  width: 100%; border-collapse: collapse; font-size: 12px;
+}
+#pdf-export-content th, #pdf-export-content td {
+  border: 1px solid #ccc; padding: 8px; text-align: center;
+}
+#pdf-export-content th { background: #eee; font-weight: bold; }
+#pdf-export-content footer {
+  text-align: center; margin-top: 20px; font-size: 10px; color: #777;
 }
 
-input[type="text"] { 
-  width: 110px; 
+/* =======================================================
+   Modal de Login
+   ======================================================= */
+.modal {
+  display: none; position: fixed; z-index: 999;
+  left: 0; top: 0; width: 100%; height: 100%;
+  background: rgba(0,0,0,0.8);
+  align-items: center; justify-content: center;
+}
+.modal-content {
+  background: #23242a; color: #fff; padding: 25px;
+  border-radius: 8px; width: 320px; box-shadow: 0 8px 30px #000b;
+  position: relative; border: 2.5px solid #ff2222;
+}
+.login-logo {
+  display: block; margin: 0 auto 18px auto; width: 65px;
+  border-radius: 8px; border: 2.5px solid #ffd700;
+  box-shadow: 0 2px 12px #ff222260;
+}
+.close {
+  color: #fff; position: absolute; right: 14px; top: 10px;
+  font-size: 28px; font-weight: bold; cursor: pointer;
+}
+.input-group { margin-bottom: 15px; }
+.input-group label { display: block; margin-bottom: 5px; font-weight: 500; }
+.input-icon-container { position: relative; }
+.input-icon {
+  position: absolute; right: 10px; top: 50%;
+  transform: translateY(-50%); color: #777;
+}
+#login-form input {
+  width: 100%; padding: 10px; border-radius: 4px; border: 1.7px solid #444;
+  background: #181a1e; color: #fff; outline: none; transition: border 0.15s;
+  box-sizing: border-box; padding-right: 35px;
+}
+#login-form input:focus { border: 1.7px solid #ffd700; }
+#login-form button {
+  width: 100%; background: linear-gradient(90deg,#ff2222 40%,#ffd700 100%);
+  color: #fff; border: none; padding: 12px 0; border-radius: 4px;
+  font-size: 1.1em; font-weight: bold; margin-top: 8px; cursor: pointer;
+}
+#login-erro {
+  color: #f66; font-size: 0.9em; min-height: 18px;
+  margin-top: 12px; text-align: center;
 }
 
-.rank-up { 
-  color: #4caf50; 
-  font-size: 1.2em; 
-  font-weight: bold; 
-}
-
-.rank-down { 
-  color: #ff5252; 
-  font-size: 1.2em; 
-  font-weight: bold; 
-}
-
-/* ======= RESPONSIVIDADE ======= */
-
-/* Modal login responsivo */
-@media (max-width: 600px) {
-  .modal {
-    align-items: flex-start;
-    padding: 20px 0;
-  }
-  
-  .modal-content {
-    width: 90%;
-    max-height: 450px;
+/* =======================================================
+   Responsividade (Telas Menores / Mobile)
+   ======================================================= */
+@media (max-width: 768px) {
+  .hero {
     padding: 20px 15px;
-    margin: 20px auto;
+    min-height: auto;
   }
-  
-  .login-logo {
-    width: 50px;
-    margin-bottom: 10px;
-  }
-  
-  .modal-content h2 {
-    font-size: 1.3em;
-    margin: 0 0 15px 0;
-    text-align: center;
-  }
-}
-
-@media (max-width: 400px) {
-  .modal-content {
-    width: 95%;
-    padding: 15px 10px;
-    margin: 10px auto;
-    max-height: 400px;
-  }
-  
-  #login-form button {
-    padding: 10px 0;
-    font-size: 1em;
-  }
-  
-  .input-group label {
-    font-size: 0.9em;
-  }
-  
-  #login-form input {
-    padding: 8px;
-    padding-right: 30px;
-    font-size: 0.95em;
-  }
-}
-
-/* Responsividade da tabela */
-@media (max-width: 700px) {
-  #painel-classificacao {
-    padding: 20px 10px;
-    margin: 15px auto;
-  }
-  
-  #tbl-classificacao th, 
-  #tbl-classificacao td {
-    padding: 10px 8px;
-    font-size: 0.95em;
-  }
-  
-  #btn-adicionar-time {
-    font-size: 1em;
-    padding: 8px 12px;
-    margin-bottom: 12px;
-  }
-}
-
-@media (max-width: 480px) {
-  #painel-classificacao {
-    padding: 15px 5px;
-    margin: 10px auto;
-  }
-  
-  #btn-adicionar-time {
-    width: 100%;
-    margin-bottom: 10px;
-  }
-}
-
-/* Para telas muito pequenas */
-@media (max-width: 320px) {
   .hero-content {
-    padding: 15px 0 0 5px;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 15px;
   }
-  
+  .title-container {
+    flex-direction: column;
+    gap: 10px;
+    order: 2; /* Título abaixo do logo */
+  }
   .clan-logo {
-    width: 50px;
-    height: 50px;
-    margin: 0 0 5px 0;
+    width: 80px;
+    height: 80px;
+    order: 1; /* Logo no topo */
   }
-  
   .main-title {
-    font-size: 1.2em;
+    font-size: 1.8em;
+  }
+  .subtitle {
+    font-size: 1em;
+  }
+  #btn-login-modal {
+    order: 3; /* Botão abaixo do título */
+    font-size: 1.8rem;
   }
   
-  .subtitle {
+  #painel-classificacao {
+    padding: 16px;
+    margin: 20px auto;
+    width: 95%;
+    box-sizing: border-box;
+  }
+  .botoes-acao {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  #tbl-classificacao th, #tbl-classificacao td {
+    padding: 8px 6px;
     font-size: 0.9em;
-    margin-top: 5px;
+  }
+  .pontos-queda {
+    font-size: 0.9em;
+  }
+  
+  .modal-content {
+    width: 90vw;
   }
 }
