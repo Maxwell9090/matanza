@@ -9,7 +9,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
 </head>
 <body>
-  <!-- Header/logo igual ao painel admin/slots -->
   <header class="hero">
     <div class="hero-bg"></div>
     <div class="hero-content">
@@ -28,7 +27,6 @@
     </button>
   </div>
   
-  <!-- Modal de login -->
   <div id="login-modal" class="modal">
     <div class="modal-content">
       <span id="close-login-modal" class="close">&times;</span>
@@ -55,9 +53,13 @@
     </div>
   </div>
   
-  <!-- Tabela -->
   <div id="painel-classificacao">
-    <button id="btn-adicionar-time">Adicionar Line (Time)</button>
+    <div class="botoes-acao">
+      <button id="btn-adicionar-time">Adicionar Line (Time)</button>
+      <button id="btn-limpar-tabela" class="btn-perigo">Limpar Tabela</button>
+      <button id="btn-exportar-pdf" class="btn-secundario">Exportar para PDF</button>
+    </div>
+    
     <div class="table-responsive">
       <table id="tbl-classificacao">
         <thead>
@@ -72,15 +74,16 @@
           </tr>
         </thead>
         <tbody>
-          <!-- Linhas dinâmicas JS -->
-        </tbody>
+          </tbody>
       </table>
     </div>
   </div>
   
-  <!-- Firebase App (compat) -->
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
   <script>
     const firebaseConfig = {
       apiKey: "AIzaSyCFV7mxop8JjAZ4zxNmKq9MHthJy13hufc",
@@ -94,36 +97,29 @@
     firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
   </script>
+  
   <script src="classificacao.obf.js"></script>
+
   <script>
-    // Exibe o modal de login ao clicar no botão (caso queira logar novamente)
+    // Lógica de login (sem alterações)
     document.getElementById('btn-login-modal').onclick = function() {
       document.getElementById('login-modal').style.display = 'flex';
       document.getElementById('login-erro').textContent = "";
     };
-    
-    // Fecha o modal
     document.getElementById('close-login-modal').onclick = function() {
       document.getElementById('login-modal').style.display = 'none';
-      document.getElementById('login-erro').textContent = "";
     };
-    
-    // Fecha ao clicar fora do modal
     window.onclick = function(e) {
       if (e.target === document.getElementById('login-modal')) {
         document.getElementById('login-modal').style.display = 'none';
-        document.getElementById('login-erro').textContent = "";
       }
     };
-    
-    // Lógica de login
     document.getElementById('login-form').onsubmit = async function(e) {
       e.preventDefault();
       const user = document.getElementById('login-user').value.trim();
       const pass = document.getElementById('login-pass').value;
       const erro = document.getElementById('login-erro');
       erro.textContent = "Validando...";
-      
       try {
         const resp = await fetch('/api/auth/login-table', {
           method: "POST",
@@ -132,35 +128,17 @@
         });
         const data = await resp.json();
         if (!data.ok) throw new Error(data.error || "Login inválido");
-        
         document.getElementById('login-modal').style.display = 'none';
         document.getElementById('painel-classificacao').style.display = 'block';
-        
-        // Limpar campos
         document.getElementById('login-user').value = "";
         document.getElementById('login-pass').value = "";
         erro.textContent = "";
-        
-        // Carregar dados da tabela
-        if(typeof window.carregarTimesSalvos === 'function') window.carregarTimesSalvos();
-        if(typeof window.renderTabela === 'function') window.renderTabela();
-        
       } catch (err) {
         erro.textContent = err.message || "Falha ao autenticar";
       }
     };
-    
-    // Garante que a tabela só aparece após login
     document.getElementById('painel-classificacao').style.display = 'none';
     document.getElementById('login-modal').style.display = 'flex';
-    
-    // Verificação do arquivo JS para debug - tente pré-carregar
-    document.addEventListener('DOMContentLoaded', function() {
-      // Verifica se o JS foi carregado corretamente
-      if (typeof window.carregarTimesSalvos !== 'function' || typeof window.renderTabela !== 'function') {
-        console.warn('Funções do classificacao.obf.js não foram encontradas. Verificando...');
-      }
-    });
   </script>
 </body>
 </html>
