@@ -68,18 +68,12 @@
       </table>
     </div>
   </div>
-
-  <div id="pdf-export-content" style="display: none;">
-    <img src="matanza.jpg" class="pdf-logo">
-    <h1>Classificação Geral - Matanza CODM</h1>
-    <p class="pdf-data"></p>
-    <div id="pdf-table-container"></div>
-    <footer>MATANZA CODM</footer>
-  </div>
   
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
 
   <script>
     const firebaseConfig = {
@@ -98,12 +92,11 @@
   <script src="classificacao.obf.js"></script>
 
   <script>
-    // Elementos do DOM
+    // Lógica de login e sessão
     const loginModal = document.getElementById('login-modal');
     const painelClassificacao = document.getElementById('painel-classificacao');
     const loginForm = document.getElementById('login-form');
 
-    // Verifica a sessão ao carregar a página
     document.addEventListener('DOMContentLoaded', function() {
       if (sessionStorage.getItem('classificacaoAutenticado') === 'true') {
         loginModal.style.display = 'none';
@@ -114,7 +107,6 @@
       }
     });
 
-    // Lógica dos botões do modal
     document.getElementById('btn-login-modal').onclick = function() {
       loginModal.style.display = 'flex';
       document.getElementById('login-erro').textContent = "";
@@ -127,8 +119,6 @@
         loginModal.style.display = 'none';
       }
     };
-
-    // Lógica de submissão do formulário de login
     loginForm.onsubmit = async function(e) {
       e.preventDefault();
       const user = document.getElementById('login-user').value.trim();
@@ -143,10 +133,7 @@
         });
         const data = await resp.json();
         if (!data.ok) throw new Error(data.error || "Login inválido");
-
-        // SALVA O ESTADO DE AUTENTICAÇÃO NA SESSÃO
         sessionStorage.setItem('classificacaoAutenticado', 'true');
-        
         loginModal.style.display = 'none';
         painelClassificacao.style.display = 'block';
         document.getElementById('login-user').value = "";
