@@ -759,3 +759,18 @@ input[type="checkbox"] {
   }
   .slot-card { min-width: 88vw; flex-basis: 88vw; }
 }
+/* =======================================================
+   NOVO: Estilo para o Ícone de Cadeado
+   ======================================================= */
+.lock-icon {
+  color: #ff4444; /* Vermelho para indicar bloqueio */
+  font-size: 0.8em;
+  margin-left: 8px;
+  cursor: pointer; /* Muda o cursor para indicar que é clicável */
+  transition: color 0.2s, transform 0.2s;
+}
+
+.lock-icon:hover {
+  color: #ffd700; /* Amarelo ao passar o mouse */
+  transform: scale(1.1);
+}

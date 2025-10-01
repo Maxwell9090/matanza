@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
-    <!-- Ícones FontAwesome para o botão da tabela -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
     <style>
       /* Ajuste para posicionar o botão no topo direito */
@@ -42,7 +41,6 @@
     </style>
 </head>
 <body>
-    <!-- BOTÃO CLASSIFICAÇÃO TOPO DIREITO -->
     <button id="btn-classificacao" title="Classificação Geral">
       <i class="fa fa-table"></i>
     </button>
@@ -81,12 +79,23 @@
         <h2 class="slots-title"><span class="slot-icon">☠︎</span> SLOTS <span class="slot-icon">☠︎</span></h2>
         <div id="slots-container"></div>
     </section>
-
+    
+    <div id="admin-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeAdminModal()">&times;</span>
+            <div id="login-form">
+                <h3>Login de Administrador</h3>
+                <p style="font-size: 0.8em; color: #aaa; text-align: center; margin-bottom: 15px;">Necessário para destravar ou editar slots.</p>
+                <input type="text" id="admin-usuario" placeholder="Usuário">
+                <input type="password" id="admin-senha" placeholder="Senha">
+                <button onclick="adminLogin()">Entrar</button>
+            </div>
+            </div>
+    </div>
     <footer>
         <p>𝗕𝗢𝗥𝗔 𝗧𝗥𝗘𝗜𝗡𝗔𝗥 💥 | MATANZA CODM</p>
     </footer>
 
-    <!-- Firebase SDKs - ADICIONE ANTES DO SCRIPT! -->
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
     <script>
@@ -103,24 +112,15 @@
       window.db = firebase.database(); // Torna db global!
     </script>
 
-    <!-- Seu script principal -->
-    <script src="script.obf.js"></script>
+    <script src="script.js"></script>
     <script>
       // Botão Classificação: redireciona para a tabela de classificação
       document.getElementById('btn-classificacao').onclick = function() {
         window.location.href = 'classificacao.html';
       };
 
-      // Atalho master
-      let masterInput = '';
-      document.addEventListener('keydown', function(e){
-          masterInput += e.key;
-          if(masterInput.length > 20) masterInput = masterInput.slice(-20);
-          if(masterInput.toLowerCase().includes('donoadmin')) {
-              masterInput = '';
-              openMasterModal();
-          }
-      });
+      // Atalho master - Removido pois essa lógica já está no script.js
+      // (Se precisar de atalhos específicos para esta página, adicione aqui)
     </script>
 </body>
 </html>
