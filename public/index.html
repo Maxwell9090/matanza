@@ -147,6 +147,20 @@
         </div>
     </div>
 
+    <!-- Modal Selecionar Slots para Limpar -->
+    <div id="limpar-slots-modal" class="modal">
+      <div class="modal-content" style="width: 400px;">
+        <span class="close" onclick="fecharModalLimparSlots()">&times;</span>
+        <h3>Selecionar Slots para Limpar</h3>
+        <div id="lista-slots-checkboxes" style="max-height: 350px; overflow-y: auto; margin-bottom: 10px;"></div>
+        <label><input type="checkbox" id="marcar-todos-slots" /> Selecionar Todos</label>
+        <div style="text-align:right; margin-top:16px;">
+          <button onclick="confirmarLimparSlots()" class="btn-perigo">Limpar Selecionados</button>
+          <button onclick="fecharModalLimparSlots()" class="btn-secundario">Cancelar</button>
+        </div>
+      </div>
+    </div>
+
     <footer>
         <p>𝗕𝗢𝗥𝗔 𝗧𝗥𝗘𝗜𝗡𝗔𝗥 💥 | MATANZA CODM</p>
         <p>Contato: pandinha | Redes sociais do clã...</p>
@@ -175,6 +189,81 @@
     <!-- Agora seu script principal -->
     <script src="script.obf.js"></script>
     <script>
+    // --------- NOVO BLOCO PARA LIMPAR SLOTS SELECIONADOS ---------
+
+    // Abre o modal de limpar slots e gera os checkboxes
+    function abrirModalLimparSlots() {
+      const modal = document.getElementById('limpar-slots-modal');
+      const lista = document.getElementById('lista-slots-checkboxes');
+      lista.innerHTML = "";
+
+      // Gera os checkboxes do 1 ao 28
+      for(let i = 1; i <= 28; i++) {
+        const label = document.createElement('label');
+        label.style.display = "block";
+        label.style.marginBottom = "6px";
+        const input = document.createElement('input');
+        input.type = "checkbox";
+        input.value = i;
+        input.checked = false; // Nenhum marcado por padrão
+        label.appendChild(input);
+        label.appendChild(document.createTextNode(" Slot " + i));
+        lista.appendChild(label);
+      }
+      document.getElementById('marcar-todos-slots').checked = false;
+      modal.style.display = "flex";
+    }
+
+    function fecharModalLimparSlots() {
+      document.getElementById('limpar-slots-modal').style.display = "none";
+    }
+
+    // Selecionar Todos
+    document.addEventListener("DOMContentLoaded", function() {
+      const marcarTodos = document.getElementById('marcar-todos-slots');
+      if (marcarTodos) {
+        marcarTodos.onchange = function() {
+          const checked = this.checked;
+          document.querySelectorAll('#lista-slots-checkboxes input[type="checkbox"]').forEach(cb => {
+            cb.checked = checked;
+          });
+        };
+      }
+    });
+
+    // Confirma e limpa os slots selecionados
+    function confirmarLimparSlots() {
+      const selecionados = [];
+      document.querySelectorAll('#lista-slots-checkboxes input[type="checkbox"]').forEach(cb => {
+        if(cb.checked) selecionados.push(parseInt(cb.value));
+      });
+
+      if(selecionados.length === 0) {
+        alert("Selecione ao menos um slot para limpar!");
+        return;
+      }
+
+      if(!confirm(`Tem certeza que deseja limpar os slots: ${selecionados.join(", ")}?`)) return;
+
+      // Limpar os selecionados no Firebase
+      selecionados.forEach(slotNum => {
+        db.ref("slots/" + slotNum).remove();
+      });
+
+      fecharModalLimparSlots();
+      alert("Slots selecionados limpos com sucesso!");
+    }
+
+    // --------- Modifique o botão para chamar o novo modal ---------
+    // Substitua o onclick do botão "Limpar Todos Slots" para abrir o novo modal
+    // No seu HTML já existe: <button onclick="limparTodosSlots()" ...>Limpar Todos Slots</button>
+    // Então basta mudar a função:
+    function limparTodosSlots() {
+      abrirModalLimparSlots();
+    }
+    </script>
+    <script>
+      // ... seu script do masterInput permanece igual ...
       let masterInput = '';
       document.addEventListener('keydown', function(e){
           masterInput += e.key;
@@ -186,5 +275,4 @@
       });
     </script>
 </body>
-
 </html>

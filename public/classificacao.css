@@ -181,7 +181,7 @@ body {
   border-color: #0fa; outline: none;
 }
 #tbl-classificacao input[type="text"] { width: 140px; }
-#tbl-classificacao input[type="number"] { width: 50px; }
+#tbl-classificacao input[type="number"] { width: 70px; }
 #tbl-classificacao select { width: 60px; }
 .kill-input { margin: 0 8px; }
 .pontos-queda { font-weight: bold; color: #ffd700; display: block; margin-top: 6px; }
