@@ -774,17 +774,29 @@ input[type="checkbox"] {
   color: #ffd700; /* Amarelo ao passar o mouse */
   transform: scale(1.1);
 }
-/* Modal Limpar Slots – visual especial */
+/* MODAL DE LIMPAR SLOTS - VISUAL PADRÃO E RESPONSIVO */
 #limpar-slots-modal .modal-content {
   background: #222;
   border-radius: 22px;
   box-shadow: 0 0 48px #ff2222, 0 0 0 #000;
   border: 3px solid #ff2222;
-  max-width: 410px;
+  max-width: 400px;
   width: 96vw;
   padding: 34px 24px 24px 24px;
   color: #fff;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+#limpar-slots-modal h3 {
+  text-align: left;
+  font-size: 1.4em;
+  margin-bottom: 15px;
+  letter-spacing: 1px;
+  color: #fff;
+  font-family: 'Orbitron', Arial, sans-serif;
 }
 
 #lista-slots-checkboxes {
@@ -792,15 +804,12 @@ input[type="checkbox"] {
   padding: 0 0 0 2px;
   font-size: 1.08em;
   margin-bottom: 14px;
-}
-
-#limpar-slots-modal h3 {
-  text-align: left;
-  font-size: 1.45em;
-  margin-bottom: 18px;
-  letter-spacing: 1px;
-  color: #fff;
-  font-family: 'Orbitron', Arial, sans-serif;
+  overflow-y: auto;
+  /* Ajuste importante para manter altura na tela cheia e caber tudo no mobile */
+  max-height: 320px;
+  min-height: 150px;
+  flex: 1;
+  box-sizing: border-box;
 }
 
 #limpar-slots-modal .close {
@@ -815,8 +824,9 @@ input[type="checkbox"] {
 
 #limpar-slots-modal label {
   font-family: 'Orbitron', Arial, sans-serif;
-  font-size: 1.02em;
+  font-size: 1.04em;
   cursor: pointer;
+  user-select: none;
 }
 
 #marcar-todos-slots {
@@ -825,21 +835,27 @@ input[type="checkbox"] {
   accent-color: #0fa;
 }
 
+#limpar-slots-modal .botoes-modal-slots {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  margin-top: 20px;
+  width: 100%;
+}
+
 #limpar-slots-modal button {
   font-family: 'Orbitron', Arial, sans-serif;
   font-size: 1.12em;
   border-radius: 13px;
-  margin-left: 7px;
-  margin-top: 0;
-  margin-bottom: 0;
-  padding: 12px 30px;
+  padding: 12px 0;
   transition: background 0.16s, color 0.16s;
+  flex: 1;
+  margin: 0;
 }
 
 #limpar-slots-modal .btn-perigo {
   background: #ff2222;
   color: #fff;
-  margin-right: 14px;
 }
 #limpar-slots-modal .btn-perigo:hover { background: #fff; color: #ff2222; }
 
@@ -856,21 +872,29 @@ input[type="checkbox"] {
   #limpar-slots-modal .modal-content {
     max-width: 98vw;
     width: 98vw;
-    padding: 13vw 3vw 5vw 3vw;
-    font-size: 1.05em;
+    padding: 6vw 2vw 2vw 2vw;
+    font-size: 1em;
+    min-width: unset;
   }
   #lista-slots-checkboxes {
-    max-height: 50vw;
-    min-height: 180px;
-    font-size: 1.04em;
+    max-height: 48vw;
+    min-height: 110px;
+    font-size: 1em;
   }
   #limpar-slots-modal h3 {
-    font-size: 1.08em;
+    font-size: 1.1em;
+  }
+  #limpar-slots-modal label {
+    font-size: 0.98em;
+  }
+  #limpar-slots-modal .botoes-modal-slots {
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 16px;
   }
   #limpar-slots-modal button {
-    width: 90%;
-    margin: 12px 0 0 0;
-    padding: 14px 0;
+    width: 100%;
     font-size: 1em;
+    padding: 13px 0;
   }
 }
