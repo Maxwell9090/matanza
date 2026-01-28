@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>X-TREINO OS LÍDERES - Slots</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+    <style>
+      /* Ajuste para posicionar o botão no topo direito */
+      #btn-classificacao {
+        position: fixed;
+        top: 18px;
+        right: 32px;
+        z-index: 1000;
+        background: #222d;
+        color: #ffd700;
+        border: none;
+        border-radius: 7px;
+        padding: 10px 14px 9px 14px;
+        font-size: 1.25em;
+        cursor: pointer;
+        box-shadow: 0 2px 8px #0007;
+        transition: background 0.18s;
+      }
+      #btn-classificacao:hover {
+        background: #444e;
+        color: #fff700;
+      }
+      /* Para mobile: */
+      @media (max-width: 640px) {
+        #btn-classificacao {
+          top: 11px;
+          right: 9px;
+          padding: 7px 10px 7px 10px;
+          font-size: 1.1em;
+        }
+      }
+    </style>
+</head>
+<body>
+    <button id="btn-classificacao" title="Classificação Geral">
+      <i class="fa fa-table"></i>
+    </button>
+
+    <header class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-content">
+            <img src="logo-lsc.png" alt="Logo Matanza CODM" class="clan-logo">
+            <h1 class="main-title">X-TREINO OS LÍDERES</h1>
+            <p class="subtitle">Salinha · <span id="modo-label">Modo: Squad</span></p>
+        </div>
+    </header>
+
+    <section class="event-info" id="event-info">
+        <div class="event-row">
+            <span class="event-label">
+                <span class="event-icon">📅</span>
+                Data do Evento:
+                <span class="event-value" id="date-label"></span>
+            </span>
+            <span class="event-label">
+                <span class="event-icon">⏱️</span>
+                Hora de Abertura:
+                <span class="event-value" id="open-label"></span>
+            </span>
+            <span class="event-label">
+                <span class="event-icon">🎮</span>
+                Hora de Início:
+                <span class="event-value" id="start-label"></span>
+            </span>
+        </div>
+        <div class="timer" id="timer"></div>
+    </section>
+
+    <section class="slots" id="slots">
+        <h2 class="slots-title"><span class="slot-icon">☠︎</span> SLOTS <span class="slot-icon">☠︎</span></h2>
+        <div id="slots-container"></div>
+    </section>
+    
+    <div id="admin-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeAdminModal()">&times;</span>
+            <div id="login-form">
+                <h3>Login de Administrador</h3>
+                <p style="font-size: 0.8em; color: #aaa; text-align: center; margin-bottom: 15px;">Necessário para destravar ou editar slots.</p>
+                <input type="text" id="admin-usuario" placeholder="Usuário">
+                <input type="password" id="admin-senha" placeholder="Senha">
+                <button onclick="adminLogin()">Entrar</button>
+            </div>
+            </div>
+    </div>
+    <footer>
+        <p>𝗕𝗢𝗥𝗔 𝗧𝗥𝗘𝗜𝗡𝗔𝗥 💥 | X-TREINO OS LÍDERES</p>
+    </footer>
+
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+    <script>
+      const firebaseConfig = {
+        apiKey: "AIzaSyCFV7mxop8JjAZ4zxNmKq9MHthJy13hufc",
+        authDomain: "matanza-f949b.firebaseapp.com",
+        databaseURL: "https://matanza-f949b-default-rtdb.firebaseio.com",
+        projectId: "matanza-f949b",
+        storageBucket: "matanza-f949b.appspot.com",
+        messagingSenderId: "277696327419",
+        appId: "1:277696327419:web:742bfa0e9cc33bf23e8a5e"
+      };
+      firebase.initializeApp(firebaseConfig);
+      window.db = firebase.database(); // Torna db global!
+    </script>
+
+    <script src="script.obf.js"></script>
+    <script>
+      // Botão Classificação: redireciona para a tabela de classificação
+      document.getElementById('btn-classificacao').onclick = function() {
+        window.location.href = 'classificacao.html';
+      };
+
+      // Atalho master - Removido pois essa lógica já está no script.js
+      // (Se precisar de atalhos específicos para esta página, adicione aqui)
+    </script>
+</body>
+</html>
