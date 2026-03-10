@@ -55,23 +55,8 @@
 
     <div class="action-buttons">
         <button class="main-btn" onclick="window.location.href='slots.html'">Entrar na Arena</button>
-        <button class="entry-btn" onclick="openEntryModal()">Entrar para o Clã</button>
     </div>
 
-    <!-- Modal entrar para o clã -->
-    <div id="entry-modal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeEntryModal()">&times;</span>
-            <h3>Entrar para o Clã</h3>
-            <input type="text" id="entry-nome" placeholder="Seu nome pessoal">
-            <input type="text" id="entry-codnome" placeholder="Nome do personagem no COD">
-            <input type="text" id="entry-codid" placeholder="ID no COD">
-            <button onclick="enviarEntry()">Enviar</button>
-            <div id="entry-status"></div>
-        </div>
-    </div>
-
-    <!-- Modal ADMIN -->
     <div id="admin-modal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeAdminModal()">&times;</span>
@@ -98,8 +83,6 @@
                 </div>
                 <button class="save-modo-btn" onclick="saveModoJogo()">Salvar Modo</button>
 
-                <!-- Se desejar manter cadastro de admins, precisaria de backend/DB.
-                     Por segurança, vamos ocultar esta seção por padrão -->
                 <div id="admin-cadastro" style="display:none;">
                   <h4>Cadastrar Novo Admin</h4>
                   <input type="text" id="cad-usuario" placeholder="Novo usuário">
@@ -115,14 +98,13 @@
                 <button onclick="saveRegras()">Salvar Regras</button>
                 <h4>Logs de Alterações (admin)</h4>
                 <ul id="logs-list"></ul>
-                <button onclick="apagarLogs()" style="background:#444; margin-top:10px;">Apagar Todos Logs</button>
-                <button onclick="logoutAdmin()" style="background:#ff4444; margin-top:12px;">Sair do Painel</button>
-                <button onclick="limparTodosSlots()" style="background:#444; margin-top:10px;">Limpar Todos Slots</button>
+                <button onclick="apagarLogs()" style="background:#444; margin-top:10px; color: #fff;">Apagar Todos Logs</button>
+                <button onclick="logoutAdmin()" style="background:#ff4444; margin-top:12px; color: #fff;">Sair do Painel</button>
+                <button onclick="limparTodosSlots()" style="background:#444; margin-top:10px; color: #fff;">Limpar Todos Slots</button>
             </div>
         </div>
     </div>
 
-    <!-- Modal Master (Dono) -->
     <div id="master-modal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeMasterModal()">&times;</span>
@@ -134,27 +116,25 @@
             <div id="master-config" style="display:none;">
                 <h3>Logs de Alterações (dono)</h3>
                 <ul id="master-logs-list"></ul>
-                <button onclick="apagarLogsMaster()" style="background:#444; margin-top:10px;">Apagar Todos Logs</button>
+                <button onclick="apagarLogsMaster()" style="background:#444; margin-top:10px; color: #fff;">Apagar Todos Logs</button>
 
-                <!-- Lista de Admins: sem senhas -->
                 <h4>Admins Cadastrados</h4>
                 <ul id="master-admin-list">
                   <li>Gerenciado no servidor (sem exibir senhas)</li>
                 </ul>
 
-                <button onclick="closeMasterModal()" style="background:#ff4444; margin-top:12px;">Fechar Master</button>
+                <button onclick="closeMasterModal()" style="background:#ff4444; margin-top:12px; color: #fff;">Fechar Master</button>
             </div>
         </div>
     </div>
 
-    <!-- Modal Selecionar Slots para Limpar -->
     <div id="limpar-slots-modal" class="modal">
-      <div class="modal-content" style="width: 400px;">
+      <div class="modal-content">
         <span class="close" onclick="fecharModalLimparSlots()">&times;</span>
         <h3>Selecionar Slots para Limpar</h3>
-        <div id="lista-slots-checkboxes" style="max-height: 350px; overflow-y: auto; margin-bottom: 10px;"></div>
+        <div id="lista-slots-checkboxes"></div>
         <label><input type="checkbox" id="marcar-todos-slots" /> Selecionar Todos</label>
-        <div style="text-align:right; margin-top:16px;">
+        <div class="botoes-modal-slots">
           <button onclick="confirmarLimparSlots()" class="btn-perigo">Limpar Selecionados</button>
           <button onclick="fecharModalLimparSlots()" class="btn-secundario">Cancelar</button>
         </div>
@@ -164,11 +144,9 @@
     <footer>
         <p>𝗕𝗢𝗥𝗔 𝗧𝗥𝗘𝗜𝗡𝗔𝗥 💥 | OS LÍDERES CODM</p>
         <p>Contato: pandinha | Redes sociais do clã...</p>
-        <p>Desenvolvido por: | Maxwell 19 99503-1968...</p>
+        <p>Desenvolvido por: Maxwell | 19 99503-1968</p>
     </footer>
 
-    <!-- Em produção use o JS ofuscado -->
-    <!-- Firebase SDKs -->
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
     <script>
@@ -183,45 +161,40 @@
         appId: "1:277696327419:web:742bfa0e9cc33bf23e8a5e"
     };
     firebase.initializeApp(firebaseConfig);
-    window.db = firebase.database(); // <-- Torna db global!
+    window.db = firebase.database();
     </script>
 
-    <!-- Agora seu script principal -->
     <script src="script.obf.js"></script>
     <script>
-    // --------- NOVO BLOCO PARA LIMPAR SLOTS SELECIONADOS ---------
-
-    // Abre o modal de limpar slots e gera os checkboxes
+    // --------- BLOCO PARA LIMPAR SLOTS SELECIONADOS ---------
     function abrirModalLimparSlots() {
-    const modal = document.getElementById('limpar-slots-modal');
-    const lista = document.getElementById('lista-slots-checkboxes');
-    lista.innerHTML = "";
+      const modal = document.getElementById('limpar-slots-modal');
+      const lista = document.getElementById('lista-slots-checkboxes');
+      lista.innerHTML = "";
 
-    // Gera os checkboxes do 1 ao 28
-    for(let i = 1; i <= 28; i++) {
-        const label = document.createElement('label');
-        label.style.display = "block";
-        label.style.marginBottom = "8px";
-        label.style.fontSize = "1.18em";
-        label.style.fontWeight = "bold";
-        const input = document.createElement('input');
-        input.type = "checkbox";
-        input.value = i;
-        // Slots 12 em diante já marcados
-        input.checked = i >= 12;
-        label.appendChild(input);
-        label.appendChild(document.createTextNode(" Slot " + i));
-        lista.appendChild(label);
-    }
-    document.getElementById('marcar-todos-slots').checked = false;
-    modal.style.display = "flex";
+      // Gera os checkboxes do 1 ao 28
+      for(let i = 1; i <= 28; i++) {
+          const label = document.createElement('label');
+          label.style.display = "block";
+          label.style.marginBottom = "8px";
+          label.style.fontSize = "1.18em";
+          label.style.fontWeight = "bold";
+          const input = document.createElement('input');
+          input.type = "checkbox";
+          input.value = i;
+          input.checked = i >= 12;
+          label.appendChild(input);
+          label.appendChild(document.createTextNode(" Slot " + i));
+          lista.appendChild(label);
+      }
+      document.getElementById('marcar-todos-slots').checked = false;
+      modal.style.display = "flex";
     }
 
     function fecharModalLimparSlots() {
       document.getElementById('limpar-slots-modal').style.display = "none";
     }
 
-    // Selecionar Todos
     document.addEventListener("DOMContentLoaded", function() {
       const marcarTodos = document.getElementById('marcar-todos-slots');
       if (marcarTodos) {
@@ -234,7 +207,6 @@
       }
     });
 
-    // Confirma e limpa os slots selecionados
     function confirmarLimparSlots() {
       const selecionados = [];
       document.querySelectorAll('#lista-slots-checkboxes input[type="checkbox"]').forEach(cb => {
@@ -248,7 +220,6 @@
 
       if(!confirm(`Tem certeza que deseja limpar os slots: ${selecionados.join(", ")}?`)) return;
 
-      // Limpar os selecionados no Firebase
       selecionados.forEach(slotNum => {
         db.ref("slots/" + slotNum).remove();
       });
@@ -257,16 +228,12 @@
       alert("Slots selecionados limpos com sucesso!");
     }
 
-    // --------- Modifique o botão para chamar o novo modal ---------
-    // Substitua o onclick do botão "Limpar Todos Slots" para abrir o novo modal
-    // No seu HTML já existe: <button onclick="limparTodosSlots()" ...>Limpar Todos Slots</button>
-    // Então basta mudar a função:
     function limparTodosSlots() {
       abrirModalLimparSlots();
     }
     </script>
+    
     <script>
-      // ... seu script do masterInput permanece igual ...
       let masterInput = '';
       document.addEventListener('keydown', function(e){
           masterInput += e.key;
