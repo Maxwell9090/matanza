@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="classificacao.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
 </head>
 <body>
   <header class="hero">
@@ -47,7 +48,7 @@
     <div class="botoes-acao">
       <button id="btn-adicionar-time" class="btn-acao">Adicionar Line</button>
       <button id="btn-limpar-tabela" class="btn-perigo">Limpar Tabela</button>
-      <button id="btn-exportar-pdf" class="btn-secundario">Exportar para PDF</button>
+      <button id="btn-gerar-pdf-custom" class="btn-secundario">Gerar Layout Personalizado</button>
     </div>
     
     <div class="table-responsive">
@@ -64,17 +65,38 @@
             <th></th>
           </tr>
         </thead>
-        <tbody>
-          </tbody>
+        <tbody></tbody>
       </table>
     </div>
+  </div>
+
+  <div id="pdf-template-container" style="display: none;">
+      <div id="pdf-custom-layout">
+          <div class="pdf-custom-header">
+              <img src="matanza.jpg" alt="Logo Esquerda" class="pdf-logo-left">
+              <div class="pdf-header-titles">
+                  <h2>Treino</h2>
+                  <h1>Os Líderes</h1>
+              </div>
+          </div>
+
+          <div class="pdf-custom-col-headers">
+              <span style="width: 10%">Rank</span>
+              <span style="width: 30%">Clã</span>
+              <span style="width: 30%">Line</span>
+              <span style="width: 15%">Kills</span>
+              <span style="width: 15%">Pont.</span>
+          </div>
+
+          <div id="pdf-custom-rows"></div>
+      </div>
   </div>
   
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
   
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
   <script>
     const firebaseConfig = {
@@ -93,7 +115,7 @@
   <script src="classificacao.obf.js"></script>
 
   <script>
-    // Lógica de login e sessão
+    // Lógica de login existente
     const loginModal = document.getElementById('login-modal');
     const painelClassificacao = document.getElementById('painel-classificacao');
     const loginForm = document.getElementById('login-form');
@@ -108,18 +130,10 @@
       }
     });
 
-    document.getElementById('btn-login-modal').onclick = function() {
-      loginModal.style.display = 'flex';
-      document.getElementById('login-erro').textContent = "";
-    };
-    document.getElementById('close-login-modal').onclick = function() {
-      loginModal.style.display = 'none';
-    };
-    window.onclick = function(e) {
-      if (e.target === loginModal) {
-        loginModal.style.display = 'none';
-      }
-    };
+    document.getElementById('btn-login-modal').onclick = () => { loginModal.style.display = 'flex'; document.getElementById('login-erro').textContent = ""; };
+    document.getElementById('close-login-modal').onclick = () => loginModal.style.display = 'none';
+    window.onclick = (e) => { if (e.target === loginModal) loginModal.style.display = 'none'; };
+    
     loginForm.onsubmit = async function(e) {
       e.preventDefault();
       const user = document.getElementById('login-user').value.trim();
@@ -128,8 +142,7 @@
       erro.textContent = "Validando...";
       try {
         const resp = await fetch('/api/auth/login-table', {
-          method: "POST",
-          headers: {'Content-Type':'application/json'},
+          method: "POST", headers: {'Content-Type':'application/json'},
           body: JSON.stringify({ username: user, password: pass })
         });
         const data = await resp.json();
@@ -137,13 +150,81 @@
         sessionStorage.setItem('classificacaoAutenticado', 'true');
         loginModal.style.display = 'none';
         painelClassificacao.style.display = 'block';
-        document.getElementById('login-user').value = "";
-        document.getElementById('login-pass').value = "";
         erro.textContent = "";
       } catch (err) {
         erro.textContent = err.message || "Falha ao autenticar";
       }
     };
+
+    // ==========================================
+    // NOVO SCRIPT PARA GERAR O PDF CUSTOMIZADO
+    // ==========================================
+    document.getElementById('btn-gerar-pdf-custom').addEventListener('click', async function() {
+        const btn = this;
+        btn.textContent = "Gerando PDF...";
+        btn.disabled = true;
+
+        const containerTemplate = document.getElementById('pdf-template-container');
+        const rowsContainer = document.getElementById('pdf-custom-rows');
+        rowsContainer.innerHTML = ''; // Limpa execuções anteriores
+
+        // Lê todas as linhas da tabela visível no site
+        const linhasTabela = document.querySelectorAll('#tbl-classificacao tbody tr');
+        
+        linhasTabela.forEach((tr, index) => {
+            // Ajuste os índices (cells[...]) conforme a estrutura real da sua tabela após adicionar linhas
+            let rankNum = (index + 1) + "º";
+            let lineName = tr.cells[1] ? tr.cells[1].innerText : "Line";
+            let totalKills = tr.cells[5] ? tr.cells[5].innerText : "0";
+            let totalPontos = tr.cells[6] ? tr.cells[6].innerText : "0";
+
+            // Cria o HTML da linha no design da imagem
+            const rowHTML = `
+                <div class="pdf-custom-row">
+                    <div class="pdf-box pdf-rank-box"><span class="unskew">${rankNum}</span></div>
+                    <div class="pdf-box pdf-red-box pdf-cla-box"><span class="unskew cursive-text">Os Líderes</span></div>
+                    <div class="pdf-box pdf-red-box pdf-line-box"><span class="unskew cursive-text">${lineName}</span></div>
+                    <div class="pdf-box pdf-white-box pdf-kills-box"><span class="unskew">${totalKills}</span></div>
+                    <div class="pdf-box pdf-dark-box pdf-pontos-box"><span class="unskew">${totalPontos}</span></div>
+                </div>
+            `;
+            rowsContainer.insertAdjacentHTML('beforeend', rowHTML);
+        });
+
+        // Mostra o container temporariamente fora da tela para "bater a foto"
+        containerTemplate.style.display = 'block';
+        containerTemplate.style.position = 'absolute';
+        containerTemplate.style.left = '-9999px';
+
+        const canvasAlvo = document.getElementById('pdf-custom-layout');
+
+        try {
+            // Tira a foto do HTML
+            const canvas = await html2canvas(canvasAlvo, {
+                scale: 2, // Aumenta a resolução
+                useCORS: true,
+                backgroundColor: "#0a0a0a"
+            });
+
+            // Converte para PDF
+            const imgData = canvas.toDataURL('image/jpeg', 0.95);
+            const pdf = new jspdf.jsPDF('p', 'mm', 'a4');
+            const pdfWidth = pdf.internal.pageSize.getWidth();
+            const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+
+            pdf.addImage(imgData, 'JPEG', 0, 0, pdfWidth, pdfHeight);
+            pdf.save('Classificacao_Os_Lideres.pdf');
+
+        } catch (error) {
+            console.error("Erro ao gerar PDF:", error);
+            alert("Ocorreu um erro ao gerar o PDF. Verifique o console.");
+        } finally {
+            // Esconde o template e reseta o botão
+            containerTemplate.style.display = 'none';
+            btn.textContent = "Gerar Layout Personalizado";
+            btn.disabled = false;
+        }
+    });
   </script>
 </body>
 </html>
