@@ -3,38 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>X-TREINO OS LÍDERES - Slots</title>
+    <title>OS LÍDERES CODM - Slots</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
     <style>
-      /* Ajuste para posicionar o botão no topo direito */
+      /* Ajuste do botão para o tema Premium Dark & Gold usando as variáveis do style.css */
       #btn-classificacao {
         position: fixed;
         top: 18px;
         right: 32px;
         z-index: 1000;
-        background: #222d;
-        color: #ffd700;
-        border: none;
+        background: rgba(20, 20, 20, 0.95);
+        color: var(--gold-primary, #d4af37);
+        border: 1px solid var(--gold-dark, #b5952f);
         border-radius: 7px;
         padding: 10px 14px 9px 14px;
         font-size: 1.25em;
         cursor: pointer;
-        box-shadow: 0 2px 8px #0007;
-        transition: background 0.18s;
+        box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
+        transition: all 0.2s ease-in-out;
       }
       #btn-classificacao:hover {
-        background: #444e;
-        color: #fff700;
+        background: #000;
+        color: var(--orange-glow, #ff8c00);
+        border-color: var(--orange-glow, #ff8c00);
+        box-shadow: 0 0 20px rgba(255, 140, 0, 0.5);
+        transform: scale(1.05);
       }
       /* Para mobile: */
       @media (max-width: 640px) {
         #btn-classificacao {
           top: 11px;
           right: 9px;
-          padding: 7px 10px 7px 10px;
+          padding: 8px 12px;
           font-size: 1.1em;
         }
       }
@@ -48,9 +51,9 @@
     <header class="hero">
         <div class="hero-bg"></div>
         <div class="hero-content">
-            <img src="xtreino.jpeg" alt="Logo Matanza CODM" class="clan-logo">
-            <h1 class="main-title">X-TREINO OS LÍDERES</h1>
-            <p class="subtitle">Salinha · <span id="modo-label">Modo: Squad</span></p>
+            <img src="matanza.jpg" alt="Logo Matanza CODM" class="clan-logo">
+            <h1 class="main-title">OS LÍDERES CODM</h1>
+            <p class="subtitle">Salinha · <span id="modo-label" style="color: var(--gold-primary);">Modo: Squad</span></p>
         </div>
     </header>
 
@@ -76,7 +79,7 @@
     </section>
 
     <section class="slots" id="slots">
-        <h2 class="slots-title"><span class="slot-icon">☠︎</span> SLOTS <span class="slot-icon">☠︎</span></h2>
+        <h2 class="slots-title"><span class="slot-icon" style="color: var(--orange-glow);">☠︎</span> SLOTS <span class="slot-icon" style="color: var(--orange-glow);">☠︎</span></h2>
         <div id="slots-container"></div>
     </section>
     
@@ -85,15 +88,15 @@
             <span class="close" onclick="closeAdminModal()">&times;</span>
             <div id="login-form">
                 <h3>Login de Administrador</h3>
-                <p style="font-size: 0.8em; color: #aaa; text-align: center; margin-bottom: 15px;">Necessário para destravar ou editar slots.</p>
+                <p style="font-size: 0.8em; color: #888; text-align: center; margin-bottom: 15px;">Necessário para destravar ou editar slots.</p>
                 <input type="text" id="admin-usuario" placeholder="Usuário">
                 <input type="password" id="admin-senha" placeholder="Senha">
                 <button onclick="adminLogin()">Entrar</button>
             </div>
-            </div>
+        </div>
     </div>
     <footer>
-        <p>𝗕𝗢𝗥𝗔 𝗧𝗥𝗘𝗜𝗡𝗔𝗥 💥 | X-TREINO OS LÍDERES</p>
+        <p>𝗕𝗢𝗥𝗔 𝗧𝗥𝗘𝗜𝗡𝗔𝗥 💥 | OS LÍDERES CODM</p>
     </footer>
 
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
@@ -118,10 +121,6 @@
       document.getElementById('btn-classificacao').onclick = function() {
         window.location.href = 'classificacao.html';
       };
-
-      // Atalho master - Removido pois essa lógica já está no script.js
-      // (Se precisar de atalhos específicos para esta página, adicione aqui)
     </script>
 </body>
-
 </html>
