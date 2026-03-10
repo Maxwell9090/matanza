@@ -72,20 +72,30 @@
 
   <div id="pdf-template-container" style="display: none;">
       <div id="pdf-custom-layout">
+          <div class="pdf-bg-x1"></div>
+          <div class="pdf-bg-x2"></div>
+
           <div class="pdf-custom-header">
-              <img src="matanza.jpg" alt="Logo Esquerda" class="pdf-logo-left">
-              <div class="pdf-header-titles">
-                  <h2>Treino</h2>
-                  <h1>Os Líderes</h1>
+              <div class="pdf-logo-box">
+                  <img src="matanza.jpg" alt="Logo Esquerda">
+              </div>
+              <div class="pdf-header-center">
+                  <div class="pdf-header-treino">Treino</div>
+                  <h1 class="pdf-header-lideres">Os Líderes</h1>
+              </div>
+              <div class="pdf-logo-box">
+                  <img src="matanza.jpg" alt="Logo Direita">
+                  <div class="pdf-date" id="pdf-date-text">06|03|2026</div>
               </div>
           </div>
 
-          <div class="pdf-custom-col-headers">
-              <span style="width: 10%">Rank</span>
-              <span style="width: 30%">Clã</span>
-              <span style="width: 30%">Line</span>
-              <span style="width: 15%">Kills</span>
-              <span style="width: 15%">Pont.</span>
+          <div class="pdf-col-headers">
+              <div style="width: 55px; margin-left:20px; text-align:center;">Ran</div>
+              <div style="width: 180px; margin-left:10px; text-align:center;">Clã</div>
+              <div class="box-spacer"></div>
+              <div style="width: 180px; margin-right:10px; text-align:center;">Liner</div>
+              <div style="width: 65px; margin-right:15px; text-align:center;">Kills</div>
+              <div style="width: 100px; text-align:center;">Pont.</div>
           </div>
 
           <div id="pdf-custom-rows"></div>
@@ -157,7 +167,7 @@
     };
 
     // ==========================================
-    // NOVO SCRIPT PARA GERAR O PDF CUSTOMIZADO
+    // SCRIPT PARA GERAR O PDF CUSTOMIZADO
     // ==========================================
     document.getElementById('btn-gerar-pdf-custom').addEventListener('click', async function() {
         const btn = this;
@@ -168,24 +178,38 @@
         const rowsContainer = document.getElementById('pdf-custom-rows');
         rowsContainer.innerHTML = ''; // Limpa execuções anteriores
 
+        // Atualiza a data atual no layout
+        const dataAtual = new Date().toLocaleDateString('pt-BR', {day: '2-digit', month: '2-digit', year: 'numeric'}).replace(/\//g, '|');
+        document.getElementById('pdf-date-text').textContent = dataAtual;
+
         // Lê todas as linhas da tabela visível no site
         const linhasTabela = document.querySelectorAll('#tbl-classificacao tbody tr');
         
         linhasTabela.forEach((tr, index) => {
-            // Ajuste os índices (cells[...]) conforme a estrutura real da sua tabela após adicionar linhas
             let rankNum = (index + 1) + "º";
-            let lineName = tr.cells[1] ? tr.cells[1].innerText : "Line";
-            let totalKills = tr.cells[5] ? tr.cells[5].innerText : "0";
-            let totalPontos = tr.cells[6] ? tr.cells[6].innerText : "0";
+            // Pega o nome da line da tabela (coluna 2, que tem um input)
+            let lineInput = tr.querySelector('td:nth-child(2) input');
+            let lineName = lineInput ? lineInput.value : "Line";
+            let totalKills = tr.querySelector('.total-kills-cell') ? tr.querySelector('.total-kills-cell').innerText : "0";
+            let totalPontos = tr.querySelector('.total-cell') ? tr.querySelector('.total-cell').innerText : "0";
 
-            // Cria o HTML da linha no design da imagem
+            // Para formatar os pontos com pontinho (ex: 3.380)
+            totalPontos = Number(totalPontos).toLocaleString('pt-BR');
+
+            // Cria o HTML da linha perfeitamente estruturado
             const rowHTML = `
-                <div class="pdf-custom-row">
-                    <div class="pdf-box pdf-rank-box"><span class="unskew">${rankNum}</span></div>
-                    <div class="pdf-box pdf-red-box pdf-cla-box"><span class="unskew cursive-text">Os Líderes</span></div>
-                    <div class="pdf-box pdf-red-box pdf-line-box"><span class="unskew cursive-text">${lineName}</span></div>
-                    <div class="pdf-box pdf-white-box pdf-kills-box"><span class="unskew">${totalKills}</span></div>
-                    <div class="pdf-box pdf-dark-box pdf-pontos-box"><span class="unskew">${totalPontos}</span></div>
+                <div class="pdf-row-layout">
+                    <div class="pdf-box box-rank"><span>${rankNum}</span></div>
+                    <div class="pdf-box box-cla"><span>NightChaos</span></div>
+                    
+                    <div class="box-spacer"></div>
+                    
+                    <div class="pdf-box box-line"><span>${lineName}</span></div>
+                    <div class="pdf-box box-kills"><span>${totalKills}</span></div>
+                    
+                    <div class="pdf-pont-wrap">
+                        <div class="pdf-pont-inner"><span>${totalPontos}</span></div>
+                    </div>
                 </div>
             `;
             rowsContainer.insertAdjacentHTML('beforeend', rowHTML);
@@ -201,9 +225,9 @@
         try {
             // Tira a foto do HTML
             const canvas = await html2canvas(canvasAlvo, {
-                scale: 2, // Aumenta a resolução
+                scale: 2, // Aumenta a resolução para uma imagem super nítida
                 useCORS: true,
-                backgroundColor: "#0a0a0a"
+                backgroundColor: "#050505"
             });
 
             // Converte para PDF
@@ -213,7 +237,8 @@
             const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
 
             pdf.addImage(imgData, 'JPEG', 0, 0, pdfWidth, pdfHeight);
-            pdf.save('Classificacao_Os_Lideres.pdf');
+            const nomeArquivo = `Tabela_Os_Lideres_${new Date().toLocaleDateString('pt-BR').replace(/\//g, '-')}.pdf`;
+            pdf.save(nomeArquivo);
 
         } catch (error) {
             console.error("Erro ao gerar PDF:", error);

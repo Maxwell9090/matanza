@@ -1,456 +1,278 @@
 /* =======================================================
    Base e Fontes
    ======================================================= */
-body {
-  font-family: 'Orbitron', 'Segoe UI', Arial, sans-serif;
-  background: #16161a;
-  color: #f3f3f3;
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden; /* Previne scroll horizontal indesejado */
-}
-
-/* =======================================================
-   Hero Header (Estilo da Home Page)
-   ======================================================= */
-.hero {
-  position: relative;
-  width: 100%;
-  min-height: 180px;
-  background: #18181c;
-  border-bottom: 3px solid #ff2222;
-  box-shadow: 0 4px 20px #ff222288;
-  overflow: hidden;
-  margin-bottom: 24px;
-  display: flex;
-  align-items: center;
-  padding: 0 30px;
-  box-sizing: border-box;
-}
-.hero-bg {
-  position: absolute;
-  top: 0; left: 0; width: 100%; height: 100%;
-  background: url('codmobile-hero2.jpg') center/cover no-repeat;
-  opacity: 0.1;
-  z-index: 1;
-}
-.hero-content {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  align-items: center;
-  width: 100%;
-  justify-content: space-between;
-}
-.title-container {
-  display: flex;
-  align-items: center;
-  gap: 28px;
-}
-.clan-logo {
-  width: 95px;
-  height: 95px;
-  border-radius: 11px;
-  border: 2.5px solid #ffd700;
-  box-shadow: 0 6px 32px #0008;
-}
-.main-title {
-  font-size: 2.3em;
-  font-weight: 900;
-  color: #ff2222;
-  text-shadow: 0 0 12px #ff2222;
-}
-.subtitle {
-  color: #fff;
-  font-size: 1.2em;
-  margin-top: 8px;
-  font-weight: 700;
-  letter-spacing: 1px;
-}
-#btn-login-modal {
-  font-size: 2rem;
-  color: #ff2222;
-  cursor: pointer;
-  background: none;
-  border: none;
-  transition: color 0.2s, transform 0.2s;
-  filter: drop-shadow(0 0 8px #ff2222);
-}
-#btn-login-modal:hover {
-  color: #0fa;
-  transform: scale(1.1);
-  filter: drop-shadow(0 0 12px #0fa);
-}
-
-/* =======================================================
-   Painel e Botões de Ação
-   ======================================================= */
-#painel-classificacao {
-  max-width: 1200px;
-  margin: 32px auto;
-  background: rgba(34,34,34,0.93);
-  border-radius: 16px;
-  padding: 24px;
-  box-shadow: 0 4px 24px #111, 0 0 24px #ff2222;
-}
-.botoes-acao {
-  display: flex;
-  gap: 16px;
-  margin-bottom: 24px;
-  flex-wrap: wrap;
-}
-.btn-acao, .btn-perigo, .btn-secundario {
-  padding: 12px 28px;
-  border-radius: 20px;
-  font-size: 1rem;
-  font-weight: bold;
-  text-decoration: none;
-  border: none;
-  transition: all 0.2s;
-  cursor: pointer;
-  letter-spacing: 1px;
-  font-family: 'Orbitron', sans-serif;
-}
-.btn-acao { /* Adicionar */
-  background: linear-gradient(90deg, #0fa 0%, #fff 100%);
-  color: #18181c;
-  box-shadow: 0 0 20px #0fa, 0 0 10px #fff;
-}
-.btn-acao:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 0 30px #0fa, 0 0 15px #fff;
-}
-.btn-perigo { /* Limpar */
-  background: linear-gradient(90deg, #ff2222 0%, #ff8888 100%);
-  color: #fff;
-  box-shadow: 0 0 20px #ff2222, 0 0 10px #fff;
-}
-.btn-perigo:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 0 30px #ff2222, 0 0 15px #fff;
-}
-.btn-secundario { /* PDF */
-  background: #444;
-  color: #fff;
-  border: 2px solid #666;
-}
-.btn-secundario:hover {
-  background: #555;
-  border-color: #888;
-  transform: translateY(-2px);
-}
-
-/* =======================================================
-   Tabela de Classificação
-   ======================================================= */
-.table-responsive {
-  width: 100%;
-  overflow-x: auto;
-  border: 3px solid #ff2222;
-  border-radius: 12px;
-  box-shadow: 0 0 30px #ff2222aa, 0 0 40px #111 inset;
-}
-#tbl-classificacao {
-  width: 100%;
-  border-collapse: collapse;
-  background: #18181c;
-  min-width: 900px;
-}
-#tbl-classificacao th, #tbl-classificacao td {
-  border: 1px solid #444;
-  padding: 12px;
-  text-align: center;
-  vertical-align: middle;
-}
-#tbl-classificacao th {
-  background: #222;
-  color: #ff2222;
-  font-size: 1.1em;
-  letter-spacing: 1px;
-}
-#tbl-classificacao tr:nth-child(even) { background: #202024; }
-#tbl-classificacao tr:hover { background: #2a2d35; }
-
-#tbl-classificacao input, #tbl-classificacao select {
-  background: #1b1b1b; color: #fff; border: 1px solid #555;
-  border-radius: 6px; padding: 6px 8px; font-size: 0.95rem;
-  width: auto; box-sizing: border-box; font-family: 'Orbitron', sans-serif;
-  transition: border 0.2s; text-align: center;
-}
-#tbl-classificacao input:focus, #tbl-classificacao select:focus {
-  border-color: #0fa; outline: none;
-}
-#tbl-classificacao input[type="text"] { width: 140px; }
-#tbl-classificacao input[type="number"] { width: 70px; }
-#tbl-classificacao select { width: 60px; }
-.kill-input { margin: 0 8px; }
-.pontos-queda { font-weight: bold; color: #ffd700; display: block; margin-top: 6px; }
-
-.rank-cell { font-size: 1.3em; font-weight: bold; color: #ff2222; }
-.total-cell { font-weight: bold; color: #0fa; font-size: 1.2em; }
-.btn-remover {
-  background: #ff2222; color: #fff; border: none; border-radius: 50%;
-  width: 30px; height: 30px; font-weight: bold; cursor: pointer;
-  transition: background 0.2s;
-}
-.btn-remover:hover { background: #fff; color: #ff2222; }
-
-.rank-up, .rank-down {
-  font-size: 0.8em; margin-left: 8px; vertical-align: middle;
-}
-.rank-up { color: #4caf50; }
-.rank-down { color: #f44336; }
-
-/* =======================================================
-   Estilos para o Conteúdo do PDF (Oculto na página)
-   ======================================================= */
-#pdf-export-content {
-  font-family: Arial, sans-serif; color: #000;
-  width: 1056px; padding: 20px;
-}
-.pdf-logo { display: block; width: 120px; margin: 0 auto 20px auto; }
-#pdf-export-content h1 {
-  text-align: center; font-size: 24px; color: #c00; margin-bottom: 5px;
-}
-.pdf-data { text-align: center; font-size: 14px; margin-bottom: 25px; }
-#pdf-export-content table {
-  width: 100%; border-collapse: collapse; font-size: 12px;
-}
-#pdf-export-content th, #pdf-export-content td {
-  border: 1px solid #ccc; padding: 8px; text-align: center;
-}
-#pdf-export-content th { background: #eee; font-weight: bold; }
-#pdf-export-content footer {
-  text-align: center; margin-top: 20px; font-size: 10px; color: #777;
-}
-
-/* =======================================================
-   Modal de Login
-   ======================================================= */
-.modal {
-  display: none; position: fixed; z-index: 999;
-  left: 0; top: 0; width: 100%; height: 100%;
-  background: rgba(0,0,0,0.8);
-  align-items: center; justify-content: center;
-}
-.modal-content {
-  background: #23242a; color: #fff; padding: 25px;
-  border-radius: 8px; width: 320px; box-shadow: 0 8px 30px #000b;
-  position: relative; border: 2.5px solid #ff2222;
-}
-.login-logo {
-  display: block; margin: 0 auto 18px auto; width: 65px;
-  border-radius: 8px; border: 2.5px solid #ffd700;
-  box-shadow: 0 2px 12px #ff222260;
-}
-.close {
-  color: #fff; position: absolute; right: 14px; top: 10px;
-  font-size: 28px; font-weight: bold; cursor: pointer;
-}
-.input-group { margin-bottom: 15px; }
-.input-group label { display: block; margin-bottom: 5px; font-weight: 500; }
-.input-icon-container { position: relative; }
-.input-icon {
-  position: absolute; right: 10px; top: 50%;
-  transform: translateY(-50%); color: #777;
-}
-#login-form input {
-  width: 100%; padding: 10px; border-radius: 4px; border: 1.7px solid #444;
-  background: #181a1e; color: #fff; outline: none; transition: border 0.15s;
-  box-sizing: border-box; padding-right: 35px;
-}
-#login-form input:focus { border: 1.7px solid #ffd700; }
-#login-form button {
-  width: 100%; background: linear-gradient(90deg,#ff2222 40%,#ffd700 100%);
-  color: #fff; border: none; padding: 12px 0; border-radius: 4px;
-  font-size: 1.1em; font-weight: bold; margin-top: 8px; cursor: pointer;
-}
-#login-erro {
-  color: #f66; font-size: 0.9em; min-height: 18px;
-  margin-top: 12px; text-align: center;
-}
-
-/* =======================================================
-   Responsividade (Telas Menores / Mobile)
-   ======================================================= */
-@media (max-width: 768px) {
-  .hero {
-    padding: 20px 15px;
-    min-height: auto;
-  }
-  .hero-content {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: 15px;
-  }
-  .title-container {
-    flex-direction: column;
-    gap: 10px;
-    order: 2; /* Título abaixo do logo */
-  }
-  .clan-logo {
-    width: 80px;
-    height: 80px;
-    order: 1; /* Logo no topo */
-  }
-  .main-title {
-    font-size: 1.8em;
-  }
-  .subtitle {
-    font-size: 1em;
-  }
-  #btn-login-modal {
-    order: 3; /* Botão abaixo do título */
-    font-size: 1.8rem;
+   body {
+    font-family: 'Orbitron', 'Segoe UI', Arial, sans-serif;
+    background: #16161a;
+    color: #f3f3f3;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; 
   }
   
-  #painel-classificacao {
-    padding: 16px;
-    margin: 20px auto;
-    width: 95%;
+  /* =======================================================
+     Hero Header (Estilo da Home Page)
+     ======================================================= */
+  .hero {
+    position: relative;
+    width: 100%;
+    min-height: 180px;
+    background: #18181c;
+    border-bottom: 3px solid #ff2222;
+    box-shadow: 0 4px 20px #ff222288;
+    overflow: hidden;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    padding: 0 30px;
     box-sizing: border-box;
   }
+  .hero-bg {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: url('codmobile-hero2.jpg') center/cover no-repeat;
+    opacity: 0.1;
+    z-index: 1;
+  }
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+  }
+  .title-container {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+  }
+  .clan-logo {
+    width: 95px; height: 95px; border-radius: 11px;
+    border: 2.5px solid #ffd700; box-shadow: 0 6px 32px #0008;
+  }
+  .main-title {
+    font-size: 2.3em; font-weight: 900; color: #ff2222; text-shadow: 0 0 12px #ff2222;
+  }
+  .subtitle {
+    color: #fff; font-size: 1.2em; margin-top: 8px; font-weight: 700; letter-spacing: 1px;
+  }
+  #btn-login-modal {
+    font-size: 2rem; color: #ff2222; cursor: pointer; background: none; border: none;
+    transition: color 0.2s, transform 0.2s; filter: drop-shadow(0 0 8px #ff2222);
+  }
+  #btn-login-modal:hover {
+    color: #0fa; transform: scale(1.1); filter: drop-shadow(0 0 12px #0fa);
+  }
+  
+  /* =======================================================
+     Painel e Botões de Ação
+     ======================================================= */
+  #painel-classificacao {
+    max-width: 1200px; margin: 32px auto; background: rgba(34,34,34,0.93);
+    border-radius: 16px; padding: 24px; box-shadow: 0 4px 24px #111, 0 0 24px #ff2222;
+  }
   .botoes-acao {
-    flex-direction: column;
-    align-items: stretch;
+    display: flex; gap: 16px; margin-bottom: 24px; flex-wrap: wrap;
   }
+  .btn-acao, .btn-perigo, .btn-secundario {
+    padding: 12px 28px; border-radius: 20px; font-size: 1rem; font-weight: bold;
+    text-decoration: none; border: none; transition: all 0.2s; cursor: pointer;
+    letter-spacing: 1px; font-family: 'Orbitron', sans-serif;
+  }
+  .btn-acao { background: linear-gradient(90deg, #0fa 0%, #fff 100%); color: #18181c; box-shadow: 0 0 20px #0fa, 0 0 10px #fff; }
+  .btn-acao:hover { transform: translateY(-2px); box-shadow: 0 0 30px #0fa, 0 0 15px #fff; }
+  .btn-perigo { background: linear-gradient(90deg, #ff2222 0%, #ff8888 100%); color: #fff; box-shadow: 0 0 20px #ff2222, 0 0 10px #fff; }
+  .btn-perigo:hover { transform: translateY(-2px); box-shadow: 0 0 30px #ff2222, 0 0 15px #fff; }
+  .btn-secundario { background: #444; color: #fff; border: 2px solid #666; }
+  .btn-secundario:hover { background: #555; border-color: #888; transform: translateY(-2px); }
   
-  #tbl-classificacao th, #tbl-classificacao td {
-    padding: 8px 6px;
-    font-size: 0.9em;
+  /* =======================================================
+     Tabela de Classificação
+     ======================================================= */
+  .table-responsive {
+    width: 100%; overflow-x: auto; border: 3px solid #ff2222;
+    border-radius: 12px; box-shadow: 0 0 30px #ff2222aa, 0 0 40px #111 inset;
   }
-  .pontos-queda {
-    font-size: 0.9em;
+  #tbl-classificacao { width: 100%; border-collapse: collapse; background: #18181c; min-width: 900px; }
+  #tbl-classificacao th, #tbl-classificacao td { border: 1px solid #444; padding: 12px; text-align: center; vertical-align: middle; }
+  #tbl-classificacao th { background: #222; color: #ff2222; font-size: 1.1em; letter-spacing: 1px; }
+  #tbl-classificacao tr:nth-child(even) { background: #202024; }
+  #tbl-classificacao tr:hover { background: #2a2d35; }
+  #tbl-classificacao input, #tbl-classificacao select {
+    background: #1b1b1b; color: #fff; border: 1px solid #555; border-radius: 6px; padding: 6px 8px;
+    font-size: 0.95rem; width: auto; box-sizing: border-box; font-family: 'Orbitron', sans-serif; transition: border 0.2s; text-align: center;
   }
+  #tbl-classificacao input:focus, #tbl-classificacao select:focus { border-color: #0fa; outline: none; }
+  #tbl-classificacao input[type="text"] { width: 140px; }
+  #tbl-classificacao input[type="number"] { width: 70px; }
+  #tbl-classificacao select { width: 60px; }
+  .kill-input { margin: 0 8px; }
+  .pontos-queda { font-weight: bold; color: #ffd700; display: block; margin-top: 6px; }
+  .rank-cell { font-size: 1.3em; font-weight: bold; color: #ff2222; }
+  .total-cell { font-weight: bold; color: #0fa; font-size: 1.2em; }
+  .btn-remover {
+    background: #ff2222; color: #fff; border: none; border-radius: 50%;
+    width: 30px; height: 30px; font-weight: bold; cursor: pointer; transition: background 0.2s;
+  }
+  .btn-remover:hover { background: #fff; color: #ff2222; }
+  .rank-up, .rank-down { font-size: 0.8em; margin-left: 8px; vertical-align: middle; }
+  .rank-up { color: #4caf50; }
+  .rank-down { color: #f44336; }
   
+  /* =======================================================
+     Modal de Login
+     ======================================================= */
+  .modal {
+    display: none; position: fixed; z-index: 999; left: 0; top: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.8); align-items: center; justify-content: center;
+  }
   .modal-content {
-    width: 90vw;
+    background: #23242a; color: #fff; padding: 25px; border-radius: 8px; width: 320px;
+    box-shadow: 0 8px 30px #000b; position: relative; border: 2.5px solid #ff2222;
+  }
+  .login-logo {
+    display: block; margin: 0 auto 18px auto; width: 65px; border-radius: 8px;
+    border: 2.5px solid #ffd700; box-shadow: 0 2px 12px #ff222260;
+  }
+  .close { color: #fff; position: absolute; right: 14px; top: 10px; font-size: 28px; font-weight: bold; cursor: pointer; }
+  .input-group { margin-bottom: 15px; }
+  .input-group label { display: block; margin-bottom: 5px; font-weight: 500; }
+  .input-icon-container { position: relative; }
+  .input-icon { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); color: #777; }
+  #login-form input {
+    width: 100%; padding: 10px; border-radius: 4px; border: 1.7px solid #444; background: #181a1e;
+    color: #fff; outline: none; transition: border 0.15s; box-sizing: border-box; padding-right: 35px;
+  }
+  #login-form input:focus { border: 1.7px solid #ffd700; }
+  #login-form button {
+    width: 100%; background: linear-gradient(90deg,#ff2222 40%,#ffd700 100%); color: #fff; border: none;
+    padding: 12px 0; border-radius: 4px; font-size: 1.1em; font-weight: bold; margin-top: 8px; cursor: pointer;
+  }
+  #login-erro { color: #f66; font-size: 0.9em; min-height: 18px; margin-top: 12px; text-align: center; }
+  
+  /* =======================================================
+     Responsividade (Telas Menores / Mobile)
+     ======================================================= */
+  @media (max-width: 768px) {
+    .hero { padding: 20px 15px; min-height: auto; }
+    .hero-content { flex-direction: column; align-items: center; text-align: center; gap: 15px; }
+    .title-container { flex-direction: column; gap: 10px; order: 2; }
+    .clan-logo { width: 80px; height: 80px; order: 1; }
+    .main-title { font-size: 1.8em; }
+    .subtitle { font-size: 1em; }
+    #btn-login-modal { order: 3; font-size: 1.8rem; }
+    #painel-classificacao { padding: 16px; margin: 20px auto; width: 95%; box-sizing: border-box; }
+    .botoes-acao { flex-direction: column; align-items: stretch; }
+    #tbl-classificacao th, #tbl-classificacao td { padding: 8px 6px; font-size: 0.9em; }
+    .pontos-queda { font-size: 0.9em; }
+    .modal-content { width: 90vw; }
   }
 
-    /* =======================================================
-    ESTILOS DO TEMPLATE CUSTOMIZADO DO PDF (HTML2CANVAS)
-    ======================================================= */
+  /* =======================================================
+     ESTILOS DO TEMPLATE CUSTOMIZADO DO PDF (MANTIDO GLOBAL PARA RENDERIZAR SEMPRE CERTO)
+     ======================================================= */
   #pdf-custom-layout {
     width: 800px;
-    min-height: 1130px; /* Proporção A4 */
-    background: #0a0a0a;
-    background-image: repeating-linear-gradient(45deg, #111 0px, #111 10px, #0a0a0a 10px, #0a0a0a 20px);
-    padding: 40px;
+    min-height: 1200px; /* Será ajustado pelo conteúdo */
+    background: radial-gradient(circle at center, #242424 0%, #050505 100%);
+    padding: 30px;
     box-sizing: border-box;
     color: #fff;
     font-family: 'Orbitron', sans-serif;
     position: relative;
+    overflow: hidden;
   }
+
+  /* Efeitos de fundo em X */
+  #pdf-custom-layout::before {
+    content: ''; position: absolute; top: 0; left: 50%; width: 4px; height: 100%;
+    background: #ff0000; box-shadow: 0 0 15px #ff0000, 0 0 30px #ff0000; transform: translateX(-50%); z-index: 0;
+  }
+  .pdf-bg-x1, .pdf-bg-x2 {
+    position: absolute; width: 150%; height: 8px; background: rgba(255, 20, 20, 0.4);
+    top: 50%; left: -25%; box-shadow: 0 0 40px rgba(255,0,0,0.8); z-index: 0;
+  }
+  .pdf-bg-x1 { transform: rotate(35deg); }
+  .pdf-bg-x2 { transform: rotate(-35deg); }
 
   /* Cabeçalho do PDF */
   .pdf-custom-header {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 40px;
+    display: flex; justify-content: space-between; align-items: flex-start;
+    margin-bottom: 40px; position: relative; z-index: 2;
+  }
+  .pdf-logo-box img {
+    width: 100px; border-radius: 50%; border: 2px solid #333; box-shadow: 0 0 15px rgba(255,0,0,0.5);
+  }
+  .pdf-header-center {
+    display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
+  }
+  .pdf-header-treino {
+    font-family: 'Great Vibes', cursive; font-size: 55px; color: #fff;
+    margin-bottom: -20px; text-shadow: 2px 2px 5px #000; margin-left: 120px;
+  }
+  .pdf-header-lideres {
+    font-family: 'Great Vibes', cursive; font-size: 70px; color: #ff0000;
+    text-shadow: 2px 2px 10px #000, 0 0 20px rgba(255,0,0,0.5); margin: 0;
+  }
+  .pdf-date {
+    font-family: 'Great Vibes', cursive; font-size: 32px; color: #ffaa00;
+    text-shadow: 1px 1px 3px #000; margin-top: 10px; text-align: center;
+  }
+
+  /* Títulos das Colunas (Flutuantes) */
+  .pdf-col-headers {
+    display: flex; width: 100%; position: relative; z-index: 2;
+    font-family: 'Great Vibes', cursive; font-size: 38px; color: #fff;
+    text-shadow: 2px 2px 5px #000; margin-bottom: 10px; align-items: center;
+  }
+  
+  /* Linhas do Design */
+  .pdf-row-layout {
+    display: flex; align-items: center; width: 100%; margin-bottom: 18px; position: relative; z-index: 2;
+  }
+  .pdf-box {
+    height: 42px; display: flex; align-items: center; justify-content: center;
+    transform: skewX(-22deg); box-shadow: 4px 4px 10px rgba(0,0,0,0.8);
     position: relative;
   }
-  .pdf-logo-left {
-    width: 100px;
-    position: absolute;
-    left: 20px;
-    border-radius: 10px;
-    border: 2px solid #ff2222;
+  /* Remove inclinação do texto internamente */
+  .pdf-box span { transform: skewX(22deg); display: block; }
+  
+  /* Esquerda: Rank e Clã */
+  .box-rank {
+    background: #f4f4f4; color: #000; width: 55px; font-weight: 900; font-size: 24px;
+    margin-left: 20px; z-index: 2;
   }
-  .pdf-header-titles {
-    text-align: center;
-  }
-  .pdf-header-titles h2 {
-    font-family: 'Great Vibes', cursive;
-    font-size: 50px;
-    color: #ff2222;
-    margin: 0;
-    font-weight: normal;
-  }
-  .pdf-header-titles h1 {
-    font-family: 'Great Vibes', cursive;
-    font-size: 60px;
-    color: #ff2222;
-    margin: -15px 0 0 0;
-    font-weight: normal;
-    text-shadow: 2px 2px 5px #000;
+  .box-cla {
+    background: linear-gradient(90deg, #4a0000, #900000); color: #fff; width: 180px;
+    margin-left: 10px; font-family: 'Great Vibes', cursive; font-size: 32px;
+    text-shadow: 2px 2px 4px #000; z-index: 1; border-right: 2px solid rgba(255,0,0,0.5);
   }
 
-  /* Títulos das Colunas */
-  .pdf-custom-col-headers {
-    display: flex;
-    margin-bottom: 20px;
-    font-family: 'Great Vibes', cursive;
-    font-size: 30px;
-    color: #fff;
-    text-align: center;
+  .box-spacer { flex: 1; } /* Espaço central que divide as equipes no meio */
+
+  /* Direita: Line e Kills */
+  .box-line {
+    background: linear-gradient(90deg, #4a0000, #900000); color: #fff; width: 180px;
+    margin-right: 10px; font-family: 'Great Vibes', cursive; font-size: 32px;
+    text-shadow: 2px 2px 4px #000; border-left: 2px solid rgba(255,0,0,0.5);
+  }
+  .box-kills {
+    background: #f4f4f4; color: #000; width: 65px; font-weight: 900; font-size: 24px;
+    margin-right: 15px;
   }
 
-  /* Linhas do Design (Banners cortados) */
-  .pdf-custom-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 15px;
-    height: 45px;
+  /* Caixa Hexagonal de Pontos */
+  .pdf-pont-wrap {
+    width: 100px; height: 42px; background: #900000;
+    clip-path: polygon(15px 0, calc(100% - 15px) 0, 100% 50%, calc(100% - 15px) 100%, 15px 100%, 0 50%);
+    display: flex; align-items: center; justify-content: center;
+    padding: 3px; box-sizing: border-box; filter: drop-shadow(3px 3px 5px rgba(0,0,0,0.8));
   }
-
-  .pdf-box {
-    transform: skewX(-20deg); /* Faz o corte diagonal na caixa */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    box-shadow: 2px 2px 10px rgba(0,0,0,0.8);
+  .pdf-pont-inner {
+    width: 100%; height: 100%; background: #0c0c0c;
+    clip-path: polygon(14px 0, calc(100% - 14px) 0, 100% 50%, calc(100% - 14px) 100%, 14px 100%, 0 50%);
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; font-family: 'Orbitron', sans-serif; font-size: 19px; font-weight: bold;
   }
-  .unskew {
-    transform: skewX(20deg); /* Desfaz o corte no texto para ficar reto */
-    display: inline-block;
-    font-weight: bold;
-  }
-  .cursive-text {
-    font-family: 'Great Vibes', cursive;
-    font-size: 28px;
-    font-weight: normal;
-    letter-spacing: 1px;
-  }
-
-  /* Cores e Tamanhos Específicos das Caixas */
-  .pdf-rank-box {
-    background: #f1f1f1;
-    color: #000;
-    width: 8%;
-    font-size: 22px;
-  }
-  .pdf-cla-box {
-    width: 25%;
-  }
-  .pdf-line-box {
-    width: 25%;
-  }
-  .pdf-kills-box {
-    background: #f1f1f1;
-    color: #000;
-    width: 12%;
-    font-size: 22px;
-  }
-  .pdf-pontos-box {
-    width: 15%;
-    border: 2px solid #ff2222;
-  }
-
-  .pdf-red-box {
-    background: linear-gradient(90deg, #900000, #ff2222);
-    color: #fff;
-  }
-  .pdf-white-box {
-    background: #f5f5f5;
-    color: #000;
-  }
-  .pdf-dark-box {
-    background: #111;
-    color: #fff;
-    font-size: 20px;
-  }
-}
