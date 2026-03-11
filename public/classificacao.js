@@ -97,8 +97,8 @@ window.importarSlots = async function() {
     for (let key in slots) {
       let slot = slots[key];
       // Se houver um clã ou uma line preenchida
-      if (slot.cla || slot.line) {
-        novosTimes.push(criarNovoTime(slot.cla || "Sem Clã", slot.line || "Sem Line"));
+      if (slot.clã || slot.line) {
+        novosTimes.push(criarNovoTime(slot.clã || "Sem Clã", slot.line || "Sem Line"));
       }
     }
 
