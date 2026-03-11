@@ -177,19 +177,27 @@
   }
   
   /* =======================================================
-     ESTILOS DO TEMPLATE CUSTOMIZADO DO PDF (DESIGN GAMER PRÓ)
-     ======================================================= */
-  #pdf-custom-layout {
-    width: 1100px;
-    min-height: 1200px;
-    background: radial-gradient(circle at center, #1a1a1a 0%, #050505 100%);
-    padding: 40px 0;
-    box-sizing: border-box;
-    color: #fff;
-    font-family: 'Orbitron', sans-serif;
-    position: relative;
-    overflow: hidden;
-  }
+   ESTILOS DO TEMPLATE CUSTOMIZADO DO PDF (DESIGN GAMER PRÓ)
+   ======================================================= */
+#pdf-custom-layout {
+  width: 1100px;
+  min-height: 1200px;
+  /* Chama a nova imagem de fundo */
+  background: url('fundo-pdf.jpg') center top / cover no-repeat;
+  /* Cor de fundo preta como garantia caso a tabela cresça muito */
+  background-color: #000;
+  padding: 40px 0;
+  box-sizing: border-box;
+  color: #fff;
+  font-family: 'Orbitron', sans-serif;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Ocultamos as linhas geradas por código, pois a nova imagem já faz esse papel! */
+.pdf-center-line, .pdf-bg-diagonals {
+  display: none !important;
+}
   
   .pdf-center-line {
     position: absolute;
@@ -232,7 +240,7 @@
   }
 
   .box-cla { width: 405px; background: linear-gradient(90deg, #4a0000, #900000); color: #fff; font-family: 'Great Vibes', cursive; font-size: 36px; }
-  
+
   .pdf-os-lideres {
     font-family: 'Great Vibes', cursive; font-size: 85px; color: #ff0000;
     text-shadow: 0 0 15px rgba(255,0,0,0.6), 3px 3px 5px #000; margin: 0;
