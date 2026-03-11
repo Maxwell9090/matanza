@@ -72,30 +72,35 @@
 
   <div id="pdf-template-container" style="display: none;">
       <div id="pdf-custom-layout">
-          <div class="pdf-bg-x1"></div>
-          <div class="pdf-bg-x2"></div>
+          <div class="pdf-center-line"></div>
+          <div class="pdf-bg-diagonals"></div>
 
-          <div class="pdf-custom-header">
-              <div class="pdf-logo-box">
+          <div class="pdf-header">
+              <div class="pdf-logo-circle">
                   <img src="matanza.jpg" alt="Logo Esquerda">
               </div>
               <div class="pdf-header-center">
-                  <div class="pdf-header-treino">Treino</div>
-                  <h1 class="pdf-header-lideres">Os Líderes</h1>
+                  <div class="pdf-treino">Treino</div>
+                  <h1 class="pdf-os-lideres">Os Líderes</h1>
               </div>
-              <div class="pdf-logo-box">
-                  <img src="matanza.jpg" alt="Logo Direita">
-                  <div class="pdf-date" id="pdf-date-text">06|03|2026</div>
+              <div>
+                  <div class="pdf-logo-circle">
+                      <img src="matanza.jpg" alt="Logo Direita">
+                  </div>
+                  <div class="pdf-date" id="pdf-date-text">10/03/2026</div>
               </div>
           </div>
 
           <div class="pdf-col-headers">
-              <div style="width: 55px; margin-left:20px; text-align:center;">Ran</div>
-              <div style="width: 180px; margin-left:10px; text-align:center;">Clã</div>
-              <div class="box-spacer"></div>
-              <div style="width: 180px; margin-right:10px; text-align:center;">Liner</div>
-              <div style="width: 65px; margin-right:15px; text-align:center;">Kills</div>
-              <div style="width: 100px; text-align:center;">Pont.</div>
+              <div class="pdf-half pdf-half-left">
+                  <span style="width: 80px; text-align: center;">Ranking</span>
+                  <span style="width: 260px; text-align: center;">Clã</span>
+              </div>
+              <div class="pdf-half pdf-half-right">
+                  <span style="width: 260px; text-align: center;">Line</span>
+                  <span style="width: 80px; text-align: center;">Kills</span>
+                  <span style="width: 130px; text-align: center;">Pontos</span>
+              </div>
           </div>
 
           <div id="pdf-custom-rows"></div>
@@ -109,6 +114,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
   <script>
+    // Configuração do Firebase
     const firebaseConfig = {
       apiKey: "AIzaSyCFV7mxop8JjAZ4zxNmKq9MHthJy13hufc",
       authDomain: "matanza-f949b.firebaseapp.com",
@@ -125,7 +131,7 @@
   <script src="classificacao.obf.js"></script>
 
   <script>
-    // Lógica de login existente
+    // Lógica de Autenticação/Login
     const loginModal = document.getElementById('login-modal');
     const painelClassificacao = document.getElementById('painel-classificacao');
     const loginForm = document.getElementById('login-form');
@@ -167,55 +173,56 @@
     };
 
     // ==========================================
-    // SCRIPT PARA GERAR O PDF CUSTOMIZADO
+    // SCRIPT PARA GERAR O PDF CUSTOMIZADO DINÂMICO
     // ==========================================
     document.getElementById('btn-gerar-pdf-custom').addEventListener('click', async function() {
         const btn = this;
-        btn.textContent = "Gerando PDF...";
+        btn.textContent = "Gerando Imagem...";
         btn.disabled = true;
 
         const containerTemplate = document.getElementById('pdf-template-container');
         const rowsContainer = document.getElementById('pdf-custom-rows');
-        rowsContainer.innerHTML = ''; // Limpa execuções anteriores
+        rowsContainer.innerHTML = ''; 
 
-        // Atualiza a data atual no layout
-        const dataAtual = new Date().toLocaleDateString('pt-BR', {day: '2-digit', month: '2-digit', year: 'numeric'}).replace(/\//g, '|');
+        // Atualiza a data atual no layout com a barra / como na imagem
+        const dataAtual = new Date().toLocaleDateString('pt-BR', {day: '2-digit', month: '2-digit', year: 'numeric'});
         document.getElementById('pdf-date-text').textContent = dataAtual;
 
-        // Lê todas as linhas da tabela visível no site
+        // Extrai linha a linha os dados REAIS da tabela HTML
         const linhasTabela = document.querySelectorAll('#tbl-classificacao tbody tr');
         
         linhasTabela.forEach((tr, index) => {
             let rankNum = (index + 1) + "º";
-            // Pega o nome da line da tabela (coluna 2, que tem um input)
+            
+            // O nome que a pessoa preencheu na coluna Line:
             let lineInput = tr.querySelector('td:nth-child(2) input');
             let lineName = lineInput ? lineInput.value : "Line";
+            
+            // Captura o total calculado pelo seu sistema
             let totalKills = tr.querySelector('.total-kills-cell') ? tr.querySelector('.total-kills-cell').innerText : "0";
             let totalPontos = tr.querySelector('.total-cell') ? tr.querySelector('.total-cell').innerText : "0";
 
-            // Para formatar os pontos com pontinho (ex: 3.380)
+            // Aplica a formatação de milhar com o ponto (ex: 3.380)
             totalPontos = Number(totalPontos).toLocaleString('pt-BR');
 
-            // Cria o HTML da linha perfeitamente estruturado
+            // Cria o design espelhado para a linha com os dados extraídos
             const rowHTML = `
-                <div class="pdf-row-layout">
-                    <div class="pdf-box box-rank"><span>${rankNum}</span></div>
-                    <div class="pdf-box box-cla"><span>NightChaos</span></div>
-                    
-                    <div class="box-spacer"></div>
-                    
-                    <div class="pdf-box box-line"><span>${lineName}</span></div>
-                    <div class="pdf-box box-kills"><span>${totalKills}</span></div>
-                    
-                    <div class="pdf-pont-wrap">
-                        <div class="pdf-pont-inner"><span>${totalPontos}</span></div>
+                <div class="pdf-row-container">
+                    <div class="pdf-half pdf-half-left">
+                        <div class="pdf-box box-rank"><span>${rankNum}</span></div>
+                        <div class="pdf-box box-cla"><span>NightChaos</span></div>
+                    </div>
+                    <div class="pdf-half pdf-half-right">
+                        <div class="pdf-box box-line"><span>${lineName}</span></div>
+                        <div class="pdf-box box-kills"><span>${totalKills}</span></div>
+                        <div class="pdf-box box-pontos"><span>${totalPontos}</span></div>
                     </div>
                 </div>
             `;
             rowsContainer.insertAdjacentHTML('beforeend', rowHTML);
         });
 
-        // Mostra o container temporariamente fora da tela para "bater a foto"
+        // Tira o elemento debaixo do tapete temporariamente para a foto
         containerTemplate.style.display = 'block';
         containerTemplate.style.position = 'absolute';
         containerTemplate.style.left = '-9999px';
@@ -223,28 +230,26 @@
         const canvasAlvo = document.getElementById('pdf-custom-layout');
 
         try {
-            // Tira a foto do HTML
+            // "Tira a foto" com fundo escuro e alta escala para máxima qualidade
             const canvas = await html2canvas(canvasAlvo, {
-                scale: 2, // Aumenta a resolução para uma imagem super nítida
+                scale: 2, 
                 useCORS: true,
                 backgroundColor: "#050505"
             });
 
-            // Converte para PDF
-            const imgData = canvas.toDataURL('image/jpeg', 0.95);
+            // Converte a imagem gerada e joga num PDF da largura de uma A4
+            const imgData = canvas.toDataURL('image/jpeg', 1.0);
             const pdf = new jspdf.jsPDF('p', 'mm', 'a4');
             const pdfWidth = pdf.internal.pageSize.getWidth();
             const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
 
             pdf.addImage(imgData, 'JPEG', 0, 0, pdfWidth, pdfHeight);
-            const nomeArquivo = `Tabela_Os_Lideres_${new Date().toLocaleDateString('pt-BR').replace(/\//g, '-')}.pdf`;
-            pdf.save(nomeArquivo);
+            pdf.save(`Tabela_Os_Lideres_${dataAtual.replace(/\//g, '-')}.pdf`);
 
         } catch (error) {
             console.error("Erro ao gerar PDF:", error);
-            alert("Ocorreu um erro ao gerar o PDF. Verifique o console.");
+            alert("Ocorreu um erro ao gerar. Verifique o console.");
         } finally {
-            // Esconde o template e reseta o botão
             containerTemplate.style.display = 'none';
             btn.textContent = "Gerar Layout Personalizado";
             btn.disabled = false;
