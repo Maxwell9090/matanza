@@ -1,265 +1,267 @@
 /* =======================================================
    Base e Fontes
    ======================================================= */
-body {
-  font-family: 'Orbitron', 'Segoe UI', Arial, sans-serif;
-  background: #16161a;
-  color: #f3f3f3;
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden; 
-}
-
-/* =======================================================
-   Hero Header (Estilo da Home Page)
-   ======================================================= */
-.hero {
-  position: relative;
-  width: 100%;
-  min-height: 180px;
-  background: #18181c;
-  border-bottom: 3px solid #ff2222;
-  box-shadow: 0 4px 20px #ff222288;
-  overflow: hidden;
-  margin-bottom: 24px;
-  display: flex;
-  align-items: center;
-  padding: 0 30px;
-  box-sizing: border-box;
-}
-.hero-bg {
-  position: absolute;
-  top: 0; left: 0; width: 100%; height: 100%;
-  background: url('codmobile-hero2.jpg') center/cover no-repeat;
-  opacity: 0.1;
-  z-index: 1;
-}
-.hero-content {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  align-items: center;
-  width: 100%;
-  justify-content: space-between;
-}
-.title-container {
-  display: flex;
-  align-items: center;
-  gap: 28px;
-}
-.clan-logo {
-  width: 95px; height: 95px; border-radius: 11px;
-  border: 2.5px solid #ffd700; box-shadow: 0 6px 32px #0008;
-}
-.main-title {
-  font-size: 2.3em; font-weight: 900; color: #ff2222; text-shadow: 0 0 12px #ff2222;
-}
-.subtitle {
-  color: #fff; font-size: 1.2em; margin-top: 8px; font-weight: 700; letter-spacing: 1px;
-}
-#btn-login-modal {
-  font-size: 2rem; color: #ff2222; cursor: pointer; background: none; border: none;
-  transition: color 0.2s, transform 0.2s; filter: drop-shadow(0 0 8px #ff2222);
-}
-#btn-login-modal:hover {
-  color: #0fa; transform: scale(1.1); filter: drop-shadow(0 0 12px #0fa);
-}
-
-/* =======================================================
-   Painel e Botões de Ação
-   ======================================================= */
-#painel-classificacao {
-  max-width: 1200px; margin: 32px auto; background: rgba(34,34,34,0.93);
-  border-radius: 16px; padding: 24px; box-shadow: 0 4px 24px #111, 0 0 24px #ff2222;
-}
-.botoes-acao {
-  display: flex; gap: 16px; margin-bottom: 24px; flex-wrap: wrap;
-}
-.btn-acao, .btn-perigo, .btn-secundario {
-  padding: 12px 28px; border-radius: 20px; font-size: 1rem; font-weight: bold;
-  text-decoration: none; border: none; transition: all 0.2s; cursor: pointer;
-  letter-spacing: 1px; font-family: 'Orbitron', sans-serif;
-}
-.btn-acao { background: linear-gradient(90deg, #0fa 0%, #fff 100%); color: #18181c; box-shadow: 0 0 20px #0fa, 0 0 10px #fff; }
-.btn-acao:hover { transform: translateY(-2px); box-shadow: 0 0 30px #0fa, 0 0 15px #fff; }
-.btn-perigo { background: linear-gradient(90deg, #ff2222 0%, #ff8888 100%); color: #fff; box-shadow: 0 0 20px #ff2222, 0 0 10px #fff; }
-.btn-perigo:hover { transform: translateY(-2px); box-shadow: 0 0 30px #ff2222, 0 0 15px #fff; }
-.btn-secundario { background: #444; color: #fff; border: 2px solid #666; }
-.btn-secundario:hover { background: #555; border-color: #888; transform: translateY(-2px); }
-
-/* =======================================================
-   Tabela de Classificação
-   ======================================================= */
-.table-responsive {
-  width: 100%; overflow-x: auto; border: 3px solid #ff2222;
-  border-radius: 12px; box-shadow: 0 0 30px #ff2222aa, 0 0 40px #111 inset;
-}
-#tbl-classificacao { width: 100%; border-collapse: collapse; background: #18181c; min-width: 900px; }
-#tbl-classificacao th, #tbl-classificacao td { border: 1px solid #444; padding: 12px; text-align: center; vertical-align: middle; }
-#tbl-classificacao th { background: #222; color: #ff2222; font-size: 1.1em; letter-spacing: 1px; }
-#tbl-classificacao tr:nth-child(even) { background: #202024; }
-#tbl-classificacao tr:hover { background: #2a2d35; }
-#tbl-classificacao input, #tbl-classificacao select {
-  background: #1b1b1b; color: #fff; border: 1px solid #555; border-radius: 6px; padding: 6px 8px;
-  font-size: 0.95rem; width: auto; box-sizing: border-box; font-family: 'Orbitron', sans-serif; transition: border 0.2s; text-align: center;
-}
-#tbl-classificacao input:focus, #tbl-classificacao select:focus { border-color: #0fa; outline: none; }
-#tbl-classificacao input[type="text"] { width: 140px; }
-#tbl-classificacao input[type="number"] { width: 70px; }
-#tbl-classificacao select { width: 60px; }
-.kill-input { margin: 0 8px; }
-.pontos-queda { font-weight: bold; color: #ffd700; display: block; margin-top: 6px; }
-.rank-cell { font-size: 1.3em; font-weight: bold; color: #ff2222; }
-.total-cell { font-weight: bold; color: #0fa; font-size: 1.2em; }
-.btn-remover {
-  background: #ff2222; color: #fff; border: none; border-radius: 50%;
-  width: 30px; height: 30px; font-weight: bold; cursor: pointer; transition: background 0.2s;
-}
-.btn-remover:hover { background: #fff; color: #ff2222; }
-.rank-up, .rank-down { font-size: 0.8em; margin-left: 8px; vertical-align: middle; }
-.rank-up { color: #4caf50; }
-.rank-down { color: #f44336; }
-
-/* =======================================================
-   Modal de Login
-   ======================================================= */
-.modal {
-  display: none; position: fixed; z-index: 999; left: 0; top: 0; width: 100%; height: 100%;
-  background: rgba(0,0,0,0.8); align-items: center; justify-content: center;
-}
-.modal-content {
-  background: #23242a; color: #fff; padding: 25px; border-radius: 8px; width: 320px;
-  box-shadow: 0 8px 30px #000b; position: relative; border: 2.5px solid #ff2222;
-}
-.login-logo {
-  display: block; margin: 0 auto 18px auto; width: 65px; border-radius: 8px;
-  border: 2.5px solid #ffd700; box-shadow: 0 2px 12px #ff222260;
-}
-.close { color: #fff; position: absolute; right: 14px; top: 10px; font-size: 28px; font-weight: bold; cursor: pointer; }
-.input-group { margin-bottom: 15px; }
-.input-group label { display: block; margin-bottom: 5px; font-weight: 500; }
-.input-icon-container { position: relative; }
-.input-icon { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); color: #777; }
-#login-form input {
-  width: 100%; padding: 10px; border-radius: 4px; border: 1.7px solid #444; background: #181a1e;
-  color: #fff; outline: none; transition: border 0.15s; box-sizing: border-box; padding-right: 35px;
-}
-#login-form input:focus { border: 1.7px solid #ffd700; }
-#login-form button {
-  width: 100%; background: linear-gradient(90deg,#ff2222 40%,#ffd700 100%); color: #fff; border: none;
-  padding: 12px 0; border-radius: 4px; font-size: 1.1em; font-weight: bold; margin-top: 8px; cursor: pointer;
-}
-#login-erro { color: #f66; font-size: 0.9em; min-height: 18px; margin-top: 12px; text-align: center; }
-
-/* =======================================================
-   Responsividade (Telas Menores / Mobile)
-   ======================================================= */
-@media (max-width: 768px) {
-  .hero { padding: 20px 15px; min-height: auto; }
-  .hero-content { flex-direction: column; align-items: center; text-align: center; gap: 15px; }
-  .title-container { flex-direction: column; gap: 10px; order: 2; }
-  .clan-logo { width: 80px; height: 80px; order: 1; }
-  .main-title { font-size: 1.8em; }
-  .subtitle { font-size: 1em; }
-  #btn-login-modal { order: 3; font-size: 1.8rem; }
-  #painel-classificacao { padding: 16px; margin: 20px auto; width: 95%; box-sizing: border-box; }
-  .botoes-acao { flex-direction: column; align-items: stretch; }
-  #tbl-classificacao th, #tbl-classificacao td { padding: 8px 6px; font-size: 0.9em; }
-  .pontos-queda { font-size: 0.9em; }
-  .modal-content { width: 90vw; }
-}
-
-/* =======================================================
-   ESTILOS DO TEMPLATE CUSTOMIZADO DO PDF (DESIGN GAMER PRÓ)
-   ======================================================= */
-#pdf-custom-layout {
-  width: 1100px;
-  min-height: 1200px; /* Será ajustado automaticamente pelo conteúdo */
-  background: radial-gradient(circle at center, #1a1a1a 0%, #050505 100%);
-  padding: 40px 0;
-  box-sizing: border-box;
-  color: #fff;
-  font-family: 'Orbitron', sans-serif;
-  position: relative;
-  overflow: hidden;
-}
-
-/* Linha central Neon e Fundo */
-.pdf-center-line {
-  position: absolute;
-  left: 50%; top: 0; bottom: 0;
-  width: 4px; background: #ff0000;
-  box-shadow: 0 0 15px #ff0000, 0 0 30px #ff0000;
-  transform: translateX(-50%);
-  z-index: 1;
-}
-.pdf-bg-diagonals {
-  position: absolute;
-  width: 100%; height: 100%; top: 0; left: 0;
-  background-image: linear-gradient(45deg, rgba(255,0,0,0.03) 1px, transparent 1px), linear-gradient(-45deg, rgba(255,0,0,0.03) 1px, transparent 1px);
-  background-size: 40px 40px;
-  z-index: 0;
-}
-
-/* Header */
-.pdf-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  padding: 0 50px;
-  margin-bottom: 60px;
-  position: relative;
-  z-index: 2;
-}
-.pdf-logo-circle {
-  width: 130px; height: 130px; border-radius: 50%;
-  border: 3px solid #222; overflow: hidden;
-  box-shadow: 0 0 30px rgba(0,0,0,0.8);
-  background: #000;
-}
-.pdf-logo-circle img { width: 100%; height: 100%; object-fit: cover; }
-.pdf-header-center {
-  display: flex; flex-direction: column; align-items: center; text-align: center; margin-top: 10px;
-}
-.pdf-treino {
-  font-family: 'Great Vibes', cursive; font-size: 65px; color: #fff;
-  text-shadow: 2px 2px 5px #000; margin-bottom: -25px; margin-left: 100px;
-}
-.pdf-os-lideres {
-  font-family: 'Great Vibes', cursive; font-size: 85px; color: #ff0000;
-  text-shadow: 0 0 15px rgba(255,0,0,0.6), 3px 3px 5px #000; margin: 0;
-}
-.pdf-date {
-  font-family: 'Great Vibes', cursive; font-size: 38px; color: #ffaa00;
-  text-shadow: 2px 2px 4px #000; margin-top: 15px; text-align: center;
-}
-
-/* Headers das Colunas */
-.pdf-col-headers {
-  display: flex; width: 100%; position: relative; z-index: 2;
-  font-family: 'Great Vibes', cursive; font-size: 42px; color: #fff;
-  text-shadow: 2px 2px 5px #000; margin-bottom: 20px;
-}
-.pdf-half { width: 50%; display: flex; align-items: center; box-sizing: border-box; }
-.pdf-half-left { justify-content: flex-end; padding-right: 35px; gap: 15px; }
-.pdf-half-right { justify-content: flex-start; padding-left: 35px; gap: 15px; }
-
-/* Linhas e Caixas */
-.pdf-row-container {
-  display: flex; width: 100%; margin-bottom: 16px; position: relative; z-index: 2;
-}
-.pdf-box {
-  height: 48px; display: flex; align-items: center; justify-content: center;
-  transform: skewX(-20deg); box-shadow: 5px 5px 15px rgba(0,0,0,0.6);
-}
-.pdf-box span {
-  transform: skewX(20deg); display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-}
-
-/* Estilização Individual das Caixas */
-.box-rank { width: 80px; background: #fff; color: #000; font-size: 26px; font-weight: 900; }
-.box-cla { width: 260px; background: linear-gradient(90deg, #4a0000, #900000); color: #fff; font-family: 'Great Vibes', cursive; font-size: 36px; }
-
-.box-line { width: 260px; background: linear-gradient(90deg, #500000, #900000); color: #fff; font-size: 20px; font-weight: 700; }
-.box-kills { width: 80px; background: #fff; color: #000; font-size: 26px; font-weight: 900; }
-.box-pontos { width: 130px; background: #000; border: 2px solid #ff0000; color: #fff; font-size: 24px; font-weight: 900; box-shadow: 0 0 10px rgba(255,0,0,0.3) inset; }
+   body {
+    font-family: 'Orbitron', 'Segoe UI', Arial, sans-serif;
+    background: #16161a;
+    color: #f3f3f3;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; 
+  }
+  
+  /* =======================================================
+     Hero Header (Estilo da Home Page)
+     ======================================================= */
+  .hero {
+    position: relative;
+    width: 100%;
+    min-height: 180px;
+    background: #18181c;
+    border-bottom: 3px solid #ff2222;
+    box-shadow: 0 4px 20px #ff222288;
+    overflow: hidden;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    padding: 0 30px;
+    box-sizing: border-box;
+  }
+  .hero-bg {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: url('codmobile-hero2.jpg') center/cover no-repeat;
+    opacity: 0.1;
+    z-index: 1;
+  }
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+  }
+  .title-container {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+  }
+  .clan-logo {
+    width: 95px; height: 95px; border-radius: 11px;
+    border: 2.5px solid #ffd700; box-shadow: 0 6px 32px #0008;
+  }
+  .main-title {
+    font-size: 2.3em; font-weight: 900; color: #ff2222; text-shadow: 0 0 12px #ff2222;
+  }
+  .subtitle {
+    color: #fff; font-size: 1.2em; margin-top: 8px; font-weight: 700; letter-spacing: 1px;
+  }
+  #btn-login-modal {
+    font-size: 2rem; color: #ff2222; cursor: pointer; background: none; border: none;
+    transition: color 0.2s, transform 0.2s; filter: drop-shadow(0 0 8px #ff2222);
+  }
+  #btn-login-modal:hover {
+    color: #0fa; transform: scale(1.1); filter: drop-shadow(0 0 12px #0fa);
+  }
+  
+  /* =======================================================
+     Painel e Botões de Ação
+     ======================================================= */
+  #painel-classificacao {
+    max-width: 1200px; margin: 32px auto; background: rgba(34,34,34,0.93);
+    border-radius: 16px; padding: 24px; box-shadow: 0 4px 24px #111, 0 0 24px #ff2222;
+  }
+  .botoes-acao {
+    display: flex; gap: 16px; margin-bottom: 24px; flex-wrap: wrap;
+  }
+  .btn-acao, .btn-perigo, .btn-secundario, .btn-destaque {
+    padding: 12px 28px; border-radius: 20px; font-size: 1rem; font-weight: bold;
+    text-decoration: none; border: none; transition: all 0.2s; cursor: pointer;
+    letter-spacing: 1px; font-family: 'Orbitron', sans-serif;
+  }
+  .btn-acao { background: linear-gradient(90deg, #0fa 0%, #fff 100%); color: #18181c; box-shadow: 0 0 20px #0fa, 0 0 10px #fff; }
+  .btn-acao:hover { transform: translateY(-2px); box-shadow: 0 0 30px #0fa, 0 0 15px #fff; }
+  .btn-perigo { background: linear-gradient(90deg, #ff2222 0%, #ff8888 100%); color: #fff; box-shadow: 0 0 20px #ff2222, 0 0 10px #fff; }
+  .btn-perigo:hover { transform: translateY(-2px); box-shadow: 0 0 30px #ff2222, 0 0 15px #fff; }
+  .btn-secundario { background: #444; color: #fff; border: 2px solid #666; }
+  .btn-secundario:hover { background: #555; border-color: #888; transform: translateY(-2px); }
+  .btn-destaque { background: linear-gradient(90deg, #ff8c00 0%, #ffd700 100%); color: #000; box-shadow: 0 0 20px #ff8c00; }
+  .btn-destaque:hover { transform: translateY(-2px); box-shadow: 0 0 30px #ff8c00, 0 0 15px #ffd700; color: #000; }
+  
+  /* =======================================================
+     Tabela de Classificação
+     ======================================================= */
+  .table-responsive {
+    width: 100%; overflow-x: auto; border: 3px solid #ff2222;
+    border-radius: 12px; box-shadow: 0 0 30px #ff2222aa, 0 0 40px #111 inset;
+  }
+  #tbl-classificacao { width: 100%; border-collapse: collapse; background: #18181c; min-width: 950px; }
+  #tbl-classificacao th, #tbl-classificacao td { border: 1px solid #444; padding: 12px; text-align: center; vertical-align: middle; }
+  #tbl-classificacao th { background: #222; color: #ff2222; font-size: 1.1em; letter-spacing: 1px; }
+  #tbl-classificacao tr:nth-child(even) { background: #202024; }
+  #tbl-classificacao tr:hover { background: #2a2d35; }
+  
+  /* Inputs de Clã e Line na Tabela */
+  #tbl-classificacao input, #tbl-classificacao select {
+    background: #1b1b1b; color: #fff; border: 1px solid #555; border-radius: 6px; padding: 6px 8px;
+    font-size: 0.95rem; box-sizing: border-box; font-family: 'Orbitron', sans-serif; transition: border 0.2s; text-align: center;
+  }
+  #tbl-classificacao input:focus, #tbl-classificacao select:focus { border-color: #0fa; outline: none; }
+  
+  .input-cla { width: 140px; border-color: #ff8c00 !important; color: #ffd700 !important; font-weight: bold; margin-bottom: 5px; }
+  .input-line { width: 140px; }
+  
+  #tbl-classificacao input[type="number"] { width: 70px; }
+  #tbl-classificacao select { width: 60px; }
+  .kill-input { margin: 0 8px; }
+  .pontos-queda { font-weight: bold; color: #ffd700; display: block; margin-top: 6px; }
+  .rank-cell { font-size: 1.3em; font-weight: bold; color: #ff2222; }
+  .total-cell { font-weight: bold; color: #0fa; font-size: 1.2em; }
+  .btn-remover {
+    background: #ff2222; color: #fff; border: none; border-radius: 50%;
+    width: 30px; height: 30px; font-weight: bold; cursor: pointer; transition: background 0.2s;
+  }
+  .btn-remover:hover { background: #fff; color: #ff2222; }
+  .rank-up, .rank-down { font-size: 0.8em; margin-left: 8px; vertical-align: middle; }
+  .rank-up { color: #4caf50; }
+  .rank-down { color: #f44336; }
+  
+  /* =======================================================
+     Modal de Login
+     ======================================================= */
+  .modal {
+    display: none; position: fixed; z-index: 999; left: 0; top: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.8); align-items: center; justify-content: center;
+  }
+  .modal-content {
+    background: #23242a; color: #fff; padding: 25px; border-radius: 8px; width: 320px;
+    box-shadow: 0 8px 30px #000b; position: relative; border: 2.5px solid #ff2222;
+  }
+  .login-logo {
+    display: block; margin: 0 auto 18px auto; width: 65px; border-radius: 8px;
+    border: 2.5px solid #ffd700; box-shadow: 0 2px 12px #ff222260;
+  }
+  .close { color: #fff; position: absolute; right: 14px; top: 10px; font-size: 28px; font-weight: bold; cursor: pointer; }
+  .input-group { margin-bottom: 15px; }
+  .input-group label { display: block; margin-bottom: 5px; font-weight: 500; }
+  .input-icon-container { position: relative; }
+  .input-icon { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); color: #777; }
+  #login-form input {
+    width: 100%; padding: 10px; border-radius: 4px; border: 1.7px solid #444; background: #181a1e;
+    color: #fff; outline: none; transition: border 0.15s; box-sizing: border-box; padding-right: 35px;
+  }
+  #login-form input:focus { border: 1.7px solid #ffd700; }
+  #login-form button {
+    width: 100%; background: linear-gradient(90deg,#ff2222 40%,#ffd700 100%); color: #fff; border: none;
+    padding: 12px 0; border-radius: 4px; font-size: 1.1em; font-weight: bold; margin-top: 8px; cursor: pointer;
+  }
+  #login-erro { color: #f66; font-size: 0.9em; min-height: 18px; margin-top: 12px; text-align: center; }
+  
+  /* =======================================================
+     Responsividade (Telas Menores / Mobile)
+     ======================================================= */
+  @media (max-width: 768px) {
+    .hero { padding: 20px 15px; min-height: auto; }
+    .hero-content { flex-direction: column; align-items: center; text-align: center; gap: 15px; }
+    .title-container { flex-direction: column; gap: 10px; order: 2; }
+    .clan-logo { width: 80px; height: 80px; order: 1; }
+    .main-title { font-size: 1.8em; }
+    .subtitle { font-size: 1em; }
+    #btn-login-modal { order: 3; font-size: 1.8rem; }
+    #painel-classificacao { padding: 16px; margin: 20px auto; width: 95%; box-sizing: border-box; }
+    .botoes-acao { flex-direction: column; align-items: stretch; }
+    #tbl-classificacao th, #tbl-classificacao td { padding: 8px 6px; font-size: 0.9em; }
+    .pontos-queda { font-size: 0.9em; }
+    .modal-content { width: 90vw; }
+  }
+  
+  /* =======================================================
+     ESTILOS DO TEMPLATE CUSTOMIZADO DO PDF (DESIGN GAMER PRÓ)
+     ======================================================= */
+  #pdf-custom-layout {
+    width: 1100px;
+    min-height: 1200px;
+    background: radial-gradient(circle at center, #1a1a1a 0%, #050505 100%);
+    padding: 40px 0;
+    box-sizing: border-box;
+    color: #fff;
+    font-family: 'Orbitron', sans-serif;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .pdf-center-line {
+    position: absolute;
+    left: 50%; top: 0; bottom: 0;
+    width: 4px; background: #ff0000;
+    box-shadow: 0 0 15px #ff0000, 0 0 30px #ff0000;
+    transform: translateX(-50%);
+    z-index: 1;
+  }
+  .pdf-bg-diagonals {
+    position: absolute;
+    width: 100%; height: 100%; top: 0; left: 0;
+    background-image: linear-gradient(45deg, rgba(255,0,0,0.03) 1px, transparent 1px), linear-gradient(-45deg, rgba(255,0,0,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    z-index: 0;
+  }
+  
+  .pdf-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 0 50px;
+    margin-bottom: 60px;
+    position: relative;
+    z-index: 2;
+  }
+  .pdf-logo-circle {
+    width: 130px; height: 130px; border-radius: 50%;
+    border: 3px solid #222; overflow: hidden;
+    box-shadow: 0 0 30px rgba(0,0,0,0.8);
+    background: #000;
+  }
+  .pdf-logo-circle img { width: 100%; height: 100%; object-fit: cover; }
+  .pdf-header-center {
+    display: flex; flex-direction: column; align-items: center; text-align: center; margin-top: 10px;
+  }
+  .pdf-treino {
+    font-family: 'Great Vibes', cursive; font-size: 65px; color: #fff;
+    text-shadow: 2px 2px 5px #000; margin-bottom: -25px; margin-left: 100px;
+  }
+  .pdf-os-lideres {
+    font-family: 'Great Vibes', cursive; font-size: 85px; color: #ff0000;
+    text-shadow: 0 0 15px rgba(255,0,0,0.6), 3px 3px 5px #000; margin: 0;
+  }
+  .pdf-date {
+    font-family: 'Great Vibes', cursive; font-size: 38px; color: #ffaa00;
+    text-shadow: 2px 2px 4px #000; margin-top: 15px; text-align: center;
+  }
+  
+  .pdf-col-headers {
+    display: flex; width: 100%; position: relative; z-index: 2;
+    font-family: 'Great Vibes', cursive; font-size: 42px; color: #fff;
+    text-shadow: 2px 2px 5px #000; margin-bottom: 20px;
+  }
+  .pdf-half { width: 50%; display: flex; align-items: center; box-sizing: border-box; }
+  .pdf-half-left { justify-content: flex-end; padding-right: 35px; gap: 15px; }
+  .pdf-half-right { justify-content: flex-start; padding-left: 35px; gap: 15px; }
+  
+  .pdf-row-container {
+    display: flex; width: 100%; margin-bottom: 16px; position: relative; z-index: 2;
+  }
+  .pdf-box {
+    height: 48px; display: flex; align-items: center; justify-content: center;
+    transform: skewX(-20deg); box-shadow: 5px 5px 15px rgba(0,0,0,0.6);
+  }
+  .pdf-box span {
+    transform: skewX(20deg); display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding: 0 10px;
+  }
+  
+  .box-rank { width: 80px; background: #fff; color: #000; font-size: 26px; font-weight: 900; }
+  .box-cla { width: 260px; background: linear-gradient(90deg, #4a0000, #900000); color: #fff; font-family: 'Great Vibes', cursive; font-size: 36px; }
+  
+  .box-line { width: 260px; background: linear-gradient(90deg, #500000, #900000); color: #fff; font-size: 20px; font-weight: 700; }
+  .box-kills { width: 80px; background: #fff; color: #000; font-size: 26px; font-weight: 900; }
+  .box-pontos { width: 130px; background: #000; border: 2px solid #ff0000; color: #fff; font-size: 24px; font-weight: 900; box-shadow: 0 0 10px rgba(255,0,0,0.3) inset; }

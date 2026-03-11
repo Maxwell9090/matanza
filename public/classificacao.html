@@ -46,9 +46,10 @@
   
   <div id="painel-classificacao">
     <div class="botoes-acao">
-      <button id="btn-adicionar-time" class="btn-acao">Adicionar Line</button>
+      <button onclick="importarSlots()" class="btn-destaque">⚡ Importar dos Slots</button>
+      <button id="btn-adicionar-time" class="btn-acao">Adicionar Manual</button>
+      <button id="btn-gerar-pdf-custom" class="btn-secundario">Gerar Layout Gamer</button>
       <button id="btn-limpar-tabela" class="btn-perigo">Limpar Tabela</button>
-      <button id="btn-gerar-pdf-custom" class="btn-secundario">Gerar Layout Personalizado</button>
     </div>
     
     <div class="table-responsive">
@@ -56,7 +57,7 @@
         <thead>
           <tr>
             <th>Rank</th>
-            <th>Line</th>
+            <th>Clã / Line</th>
             <th>Queda 1</th>
             <th>Queda 2</th>
             <th>Queda 3</th>
@@ -114,7 +115,6 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
   <script>
-    // Configuração do Firebase
     const firebaseConfig = {
       apiKey: "AIzaSyCFV7mxop8JjAZ4zxNmKq9MHthJy13hufc",
       authDomain: "matanza-f949b.firebaseapp.com",
@@ -128,10 +128,9 @@
     const db = firebase.database();
   </script>
   
-  <script src="classificacao.obf.js"></script>
+  <script src="classificacao.js"></script>
 
   <script>
-    // Lógica de Autenticação/Login
     const loginModal = document.getElementById('login-modal');
     const painelClassificacao = document.getElementById('painel-classificacao');
     const loginForm = document.getElementById('login-form');
@@ -173,7 +172,7 @@
     };
 
     // ==========================================
-    // SCRIPT PARA GERAR O PDF CUSTOMIZADO DINÂMICO
+    // SCRIPT PARA GERAR O PDF (AGORA COM CLÃ DINÂMICO)
     // ==========================================
     document.getElementById('btn-gerar-pdf-custom').addEventListener('click', async function() {
         const btn = this;
@@ -184,33 +183,31 @@
         const rowsContainer = document.getElementById('pdf-custom-rows');
         rowsContainer.innerHTML = ''; 
 
-        // Atualiza a data atual no layout com a barra / como na imagem
         const dataAtual = new Date().toLocaleDateString('pt-BR', {day: '2-digit', month: '2-digit', year: 'numeric'});
         document.getElementById('pdf-date-text').textContent = dataAtual;
 
-        // Extrai linha a linha os dados REAIS da tabela HTML
         const linhasTabela = document.querySelectorAll('#tbl-classificacao tbody tr');
         
         linhasTabela.forEach((tr, index) => {
             let rankNum = (index + 1) + "º";
             
-            // O nome que a pessoa preencheu na coluna Line:
-            let lineInput = tr.querySelector('td:nth-child(2) input');
-            let lineName = lineInput ? lineInput.value : "Line";
+            // Puxa o input do Clã e o input da Line (agora que estão na mesma célula)
+            let claInput = tr.querySelector('.input-cla');
+            let lineInput = tr.querySelector('.input-line');
             
-            // Captura o total calculado pelo seu sistema
+            let claName = claInput ? claInput.value : "Sem Clã";
+            let lineName = lineInput ? lineInput.value : "Sem Line";
+            
             let totalKills = tr.querySelector('.total-kills-cell') ? tr.querySelector('.total-kills-cell').innerText : "0";
             let totalPontos = tr.querySelector('.total-cell') ? tr.querySelector('.total-cell').innerText : "0";
 
-            // Aplica a formatação de milhar com o ponto (ex: 3.380)
             totalPontos = Number(totalPontos).toLocaleString('pt-BR');
 
-            // Cria o design espelhado para a linha com os dados extraídos
             const rowHTML = `
                 <div class="pdf-row-container">
                     <div class="pdf-half pdf-half-left">
                         <div class="pdf-box box-rank"><span>${rankNum}</span></div>
-                        <div class="pdf-box box-cla"><span>NightChaos</span></div>
+                        <div class="pdf-box box-cla"><span>${claName}</span></div>
                     </div>
                     <div class="pdf-half pdf-half-right">
                         <div class="pdf-box box-line"><span>${lineName}</span></div>
@@ -222,7 +219,6 @@
             rowsContainer.insertAdjacentHTML('beforeend', rowHTML);
         });
 
-        // Tira o elemento debaixo do tapete temporariamente para a foto
         containerTemplate.style.display = 'block';
         containerTemplate.style.position = 'absolute';
         containerTemplate.style.left = '-9999px';
@@ -230,14 +226,12 @@
         const canvasAlvo = document.getElementById('pdf-custom-layout');
 
         try {
-            // "Tira a foto" com fundo escuro e alta escala para máxima qualidade
             const canvas = await html2canvas(canvasAlvo, {
                 scale: 2, 
                 useCORS: true,
                 backgroundColor: "#050505"
             });
 
-            // Converte a imagem gerada e joga num PDF da largura de uma A4
             const imgData = canvas.toDataURL('image/jpeg', 1.0);
             const pdf = new jspdf.jsPDF('p', 'mm', 'a4');
             const pdfWidth = pdf.internal.pageSize.getWidth();
@@ -251,7 +245,7 @@
             alert("Ocorreu um erro ao gerar. Verifique o console.");
         } finally {
             containerTemplate.style.display = 'none';
-            btn.textContent = "Gerar Layout Personalizado";
+            btn.textContent = "Gerar Layout Gamer";
             btn.disabled = false;
         }
     });
